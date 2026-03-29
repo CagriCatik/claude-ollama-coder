@@ -1,0 +1,67 @@
+site_name: Claude-Ollama-Coder
+site_url: https://cagricatik.github.io/claude-ollama-coder/
+repo_url: https://github.com/CagriCatik/claude-ollama-coder
+repo_name: CagriCatik/claude-ollama-coder
+edit_uri: edit/main/docs/
+site_description: Use Claude CLI with local models served by Ollama
+docs_dir: docs
+site_dir: site
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tooltips
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tasklist:
+      custom_checkbox: true
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - https://unpkg.com/mermaid@10.9.3/dist/mermaid.min.js
+  - javascripts/extra.js
+nav:
+  - Home: index.md
+  - Cheatsheet: 00_Claude-Unified-Cheatsheet.md
+  - Claude Code in Action: 01_Claude-Code-in-Action.md
+  - Claude 101: 02_Claude-101.md
+  - AI Fluency Framework: 03_AI-Fluency-Framework-Foundations.md
+  - Building with the Claude API: 04_Building-with-the-Claude-API.md
+  - Model Context Protocol: 05_MCP.md
+  - Advanced MCP Patterns: 06_MCP-Advanded.md
+  - Agent Skills: 07_Agent-Skills.md
+  - Subagents & Orchestration: 08_Subagents.md

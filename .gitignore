@@ -1,4 +1,4 @@
-.aider*
 .venv/
 __pycache__/
 .claude*
+site
