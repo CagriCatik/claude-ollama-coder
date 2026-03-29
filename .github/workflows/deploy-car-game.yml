@@ -3,6 +3,9 @@ name: Deploy Car Game to GitHub Pages
 on:
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: read
   pages: write
@@ -21,16 +24,26 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      # Optional: if you provide a PAT secret with admin/pages write rights,
+      # this can auto-enable Pages for first-time deployments.
+      - name: Setup Pages (auto-enable)
+        if: ${{ secrets.PAGES_ADMIN_TOKEN != '' }}
+        uses: actions/configure-pages@v6
+        with:
+          token: ${{ secrets.PAGES_ADMIN_TOKEN }}
+          enablement: true
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        if: ${{ secrets.PAGES_ADMIN_TOKEN == '' }}
+        uses: actions/configure-pages@v6
 
       - name: Upload car-game as Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: car-game
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
