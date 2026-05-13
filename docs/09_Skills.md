@@ -1,430 +1,297 @@
-# How to Add Skills to Claude for Your Project
+# Claude Code Skills
 
-This guide shows you how to configure Claude to help with your Three.js project effectively.
+## Table of contents
+
+1. [What are skills](#what-are-skills)
+2. [How skills trigger](#how-skills-trigger)
+3. [The SKILL.md format](#the-skillmd-format)
+4. [The marketplace system](#the-marketplace-system)
+5. [Skills in this project](#skills-in-this-project)
+6. [Adding a new skill](#adding-a-new-skill)
+7. [Writing effective skill descriptions](#writing-effective-skill-descriptions)
+8. [Best practices](#best-practices)
 
 ---
 
-## 📋 Option 1: Instructions File (Recommended for VS Code)
+## What are skills
 
-### Create `.instructions.md` in Your Project Root
+Skills are reusable behavioral modules for Claude Code. A skill is a markdown file (`SKILL.md`) that contains guidelines Claude follows when a matching task is in scope. Skills do not add tools or external integrations — they shape how Claude reasons and responds within its existing capabilities.
 
-Create a file named `.instructions.md` in the `project/` folder. Claude will automatically use this.
+Unlike a `CLAUDE.md` file (which is always active for a project), skills activate selectively based on the current task. A ROS2 skill fires when you are working on robot middleware code; a software architecture skill fires when you are designing systems. Unrelated work is unaffected.
 
-```markdown
-# Three.js Development Instructions
-
-## Project Context
-This is an interactive Three.js 3D visualization project running in the browser.
-- Framework: Three.js
-- Language: Plain JavaScript (no TypeScript)
-- HTML/CSS/JS structure
-- Goals: Performance, modularity, visual polish
-
-## Current Project Files
-- `index.html` - Main HTML entry point
-- `main.js` - Main 3D scene and animation loop
-- `style.css` - Styling for canvas and UI
-- `CLAUDE.md` - Project guidelines
-
-## Your Capabilities for This Project
-
-### File Operations
-You can:
-- Read any JavaScript/HTML/CSS file in this project
-- Create new files
-- Modify existing files
-- Provide code with explanations
-
-### Three.js Skills
-Help with:
-1. **Scene Setup**: Cameras, renderers, scenes, geometries, materials
-2. **Geometry**: Shapes, custom geometries, buffer geometries
-3. **Materials**: Standard, Lambert, Phong, normal maps
-4. **Lighting**: Ambient, directional, point, spotlights
-5. **Animation**: requestAnimationFrame loops, tweens, transformations
-6. **Interaction**: Mouse/touch controls, raycasting, events
-7. **Performance**: Optimization, culling, LOD techniques
-8. **Responsive**: Canvas resize handling, mobile compatibility
-
-### Best Practices
-- Keep code modular and readable
-- Prefer MeshStandardMaterial for modern look
-- Use OrbitControls for interactive scenes
-- Handle window resize events
-- Implement proper lighting for materials
-- Test on different screen sizes
-
-## How to Request Help
-
-### For Scene Building
-"I need a rotating cube with lighting. Here are the current file contents: [show files]"
-
-### For Debugging
-"My geometry isn't showing. Here's my code: [paste]. What's wrong?"
-
-### For Features
-"Add interactive mouse controls using raycasting to let users click objects."
-
-### For Optimization
-"My scene is slow with 10,000 objects. How should I optimize?"
-
-## Output Format
-Always provide:
-1. Brief explanation of the plan
-2. Complete code changes
-3. How to run/test
-4. What was changed and why
-
-## When to Ask
-- Architecture/design decisions
-- Performance optimization
-- Debugging rendering issues
-- Best practices for 3D interactions
-- Code refactoring
+```mermaid
+flowchart LR
+    A["User task"] --> B{"Skill match?"}
+    B -->|Yes| C["Skill guidelines injected"]
+    B -->|No| D["Normal Claude behavior"]
+    C --> E["Response with skill context"]
+    D --> E
 ```
 
-### How Claude Automatically Uses This
-When you open your project folder in VS Code and chat with Claude, it will:
-1. Automatically read `.instructions.md`
-2. Use those guidelines for all responses
-3. Remember your project context
-4. Provide more relevant help
+Skills are distributed through a **marketplace** — a local or remote catalog of available skills. The Claude Code harness reads the marketplace, makes skills available, and handles triggering automatically.
 
 ---
 
-## 🛠️ Option 2: Custom Tools/Skills File
+## How skills trigger
 
-Create `project/.claude/skills.json` to define tools Claude can use:
+Each skill has a `description` field in its YAML frontmatter. Claude Code's harness compares the current task against all enabled skill descriptions and injects the matching skill's content as behavioral context.
+
+The description is the trigger mechanism. It must precisely name the conditions under which the skill applies. Vague descriptions cause the skill to fire too broadly or not at all.
+
+**Examples of tight descriptions:**
+
+- `Use when working with ROS2 nodes, packages, launch files, rclpy/rclcpp code...`
+- `Use when designing APIs or interfaces, deciding on module/package structure...`
+- `Use when writing, reviewing, or refactoring code to avoid overcomplication...`
+
+Multiple skills can be active simultaneously if the task matches more than one description.
+
+---
+
+## The SKILL.md format
+
+A skill file has two parts: a YAML frontmatter block and a markdown body.
+
+```markdown
+---
+name: my-skill
+description: One or two sentences describing exactly when this skill should activate. Be specific about the signals — file types, task types, domain concepts.
+---
+
+# Skill title
+
+Body content: guidelines, rules, patterns, examples, tables.
+Claude will follow this content when the skill is active.
+```
+
+### Frontmatter fields
+
+| Field | Required | Purpose |
+|-------|----------|---------|
+| `name` | Yes | Unique identifier for the skill within its marketplace |
+| `description` | Yes | Trigger condition — this is what the harness matches against |
+| `license` | No | Optional license declaration |
+
+### Body content
+
+The body is free-form markdown. Write it as direct behavioral instructions. Use headings to organize topic areas, tables for decision matrices, and code blocks for patterns. Keep it actionable — Claude will follow these guidelines verbatim when the skill is active, so every section should say what to do, not just what to know.
+
+---
+
+## The marketplace system
+
+Skills are grouped into **plugins** inside a **marketplace**. The marketplace is defined by a `marketplace.json` file.
+
+### marketplace.json structure
 
 ```json
 {
-  "skills": [
+  "name": "user-skills",
+  "owner": {
+    "name": "Your Name"
+  },
+  "metadata": {
+    "description": "Short description of this marketplace",
+    "version": "1.0.0"
+  },
+  "plugins": [
     {
-      "name": "read_project_file",
-      "description": "Read any file in the project",
-      "enabled": true
-    },
-    {
-      "name": "create_component",
-      "description": "Create a new JavaScript Three.js component",
-      "parameters": {
-        "name": "Component name (e.g., 'lights', 'geometry')",
-        "type": "string"
-      }
-    },
-    {
-      "name": "test_in_browser",
-      "description": "Test current code in browser",
-      "enabled": true
+      "name": "user-skills",
+      "description": "What these skills cover",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/my-skill-a",
+        "./skills/my-skill-b"
+      ]
     }
-  ],
-  "context_files": [
-    "CLAUDE.md",
-    "README.md",
-    "main.js"
   ]
 }
 ```
 
----
+Each entry in `skills` is a path to a directory containing a `SKILL.md` file.
 
-## 🎯 Option 3: Copilot Instructions (VS Code Copilot)
+### How the harness finds the marketplace
 
-If using GitHub Copilot Chat in VS Code, create `.copilot-instructions` file:
+`~/.claude/settings.json` registers marketplace sources and enables specific plugins:
 
+```json
+{
+  "skills": {
+    "sources": [
+      {
+        "type": "directory",
+        "path": "/path/to/your/project"
+      }
+    ],
+    "enabled": [
+      "user-skills@user-skills"
+    ]
+  }
+}
 ```
-# Three.js Project Context
 
-## When helping with this project:
+The `enabled` value uses the format `<marketplace-name>@<plugin-name>`.
 
-1. **Always show working code**
-   - Complete, runnable examples
-   - Include necessary imports
-   - Add comments for complex parts
-
-2. **For Three.js specifically**
-   - Use MeshStandardMaterial as default
-   - Always include proper lighting
-   - Handle responsive resizing
-   - Test on both desktop and mobile viewport sizes
-
-3. **Code structure**
-   - Keep related code together
-   - Separate concerns (scene, lights, objects, interaction)
-   - Use clear function names
-   - Add JSDoc comments for main functions
-
-4. **Performance matters**
-   - Watch for memory leaks
-   - Dispose geometries and materials when removing objects
-   - Use efficient rendering patterns
-   - Consider using BufferGeometry for large meshes
-
-5. **When I ask for changes**
-   - Show diff of what changed
-   - Explain why the change helps
-   - Show how to test it
-   - Ask if you should split into separate files as project grows
+```mermaid
+flowchart TD
+    A["~/.claude/settings.json"] -->|registers source| B[".claude-plugin/marketplace.json"]
+    B -->|lists plugins| C["Plugin: user-skills"]
+    C -->|references| D["skills/ros2/SKILL.md"]
+    C -->|references| E["skills/software-engineering/SKILL.md"]
+    C -->|references| F["skills/software-architecture/SKILL.md"]
+    C -->|references| G["skills/karpathy-guidelines/SKILL.md"]
+    D & E & F & G -->|activated by task match| H["Active skill context"]
 ```
 
 ---
 
-## 📝 Option 4: Simple Knowledge File
+## Skills in this project
 
-Create `project/.claude/context.md` with your project knowledge:
+This project ships four skills. They are defined in `skills/` and registered in `.claude-plugin/marketplace.json`.
+
+### ros2
+
+**Path:** `skills/ros2/SKILL.md`
+
+Covers opinionated guidelines for writing production-quality ROS2 code in Python (`rclpy`) and C++ (`rclcpp`). Activates when working with ROS2 nodes, packages, launch files, `CMakeLists.txt` with ament, `package.xml`, colcon builds, topics, services, actions, QoS settings, lifecycle nodes, and TF2 transforms.
+
+Key areas: node design, communication pattern selection (topic vs service vs action), QoS profile matching, executor patterns, parameter declaration, Python launch files, package organization, build and test workflow, TF2 usage, error handling, C++ idioms, and naming conventions.
+
+### software-engineering
+
+**Path:** `skills/software-engineering/SKILL.md`
+
+Covers practical engineering guidelines for decisions that affect API shape, module structure, error handling strategy, design pattern selection, and cross-file contracts. Activates when designing APIs or interfaces, planning error handling, choosing between patterns, writing production code across multiple files, or when code organization decisions affect more than one file.
+
+Key areas: API and interface design principles, error handling philosophy (programming errors vs domain errors vs infrastructure errors), module organization by domain, when to reach for design patterns, testing strategy (unit vs integration vs end-to-end), structured observability, and dependency management.
+
+### software-architecture
+
+**Path:** `skills/software-architecture/SKILL.md`
+
+Covers structural thinking for systems that need to evolve, scale, and be operated. Activates when designing new systems or subsystems, choosing architectural patterns (microservices, event-driven, hexagonal, CQRS), defining component or service boundaries, planning integration strategies, writing Architecture Decision Records (ADRs), evaluating technology stack choices, or reasoning about non-functional requirements.
+
+Key areas: the three questions architecture must answer, boundary heuristics, pattern selection (monolith vs microservices vs event-driven vs hexagonal vs CQRS), quality attribute tradeoffs, ADR format and storage, coupling and cohesion, data flow ownership, designing for operations, and a structured evaluation framework for comparing options.
+
+### karpathy-guidelines
+
+**Path:** `skills/karpathy-guidelines/SKILL.md`
+
+Behavioral guidelines derived from Andrej Karpathy's observations on common LLM coding mistakes. Activates when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+
+Key areas: think before coding (surface assumptions, ask when unclear), simplicity first (minimum code that solves the problem), surgical changes (touch only what the task requires), and goal-driven execution (define verifiable success criteria before starting).
+
+---
+
+## Adding a new skill
+
+Adding a skill to this project takes two steps.
+
+### Step 1: create the skill directory and SKILL.md
+
+```bash
+mkdir skills/my-new-skill
+```
+
+Create `skills/my-new-skill/SKILL.md`:
 
 ```markdown
-# Three.js Project Knowledge Base
+---
+name: my-new-skill
+description: Precise description of when this skill should activate. Name specific file types, frameworks, task types, or domain concepts that signal relevance.
+---
 
-## Current State
-- Basic Three.js scene with canvas
-- Responsive to window resize
-- Uses requestAnimationFrame for animation loop
+# My new skill
 
-## Typical Patterns in This Project
+## Section one
 
-### Material Setup
-```javascript
-const material = new THREE.MeshStandardMaterial({
-  color: 0x4488ff,
-  metalness: 0.7,
-  roughness: 0.3
-});
+Guidelines for the first topic area.
+
+## Section two
+
+Guidelines for the second topic area.
 ```
 
-### Light Setup
-```javascript
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-directionalLight.position.set(5, 10, 7);
-scene.add(ambientLight, directionalLight);
-```
+### Step 2: register it in marketplace.json
 
-### Animation Loop
-```javascript
-function animate() {
-  requestAnimationFrame(animate);
-  // Update objects
-  mesh.rotation.x += 0.01;
-  renderer.render(scene, camera);
+Open `.claude-plugin/marketplace.json` and add the path to the `skills` array:
+
+```json
+{
+  "plugins": [
+    {
+      "name": "user-skills",
+      "skills": [
+        "./skills/karpathy-guidelines",
+        "./skills/ros2",
+        "./skills/software-engineering",
+        "./skills/software-architecture",
+        "./skills/my-new-skill"
+      ]
+    }
+  ]
 }
-animate();
 ```
 
-### Resize Handler
-```javascript
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-```
-
-## Common Tasks
-
-### Add Interaction
-Use Raycaster for mouse picking, OrbitControls for camera movement
-
-### Add Animation
-Use TWEEN.js or custom animation within requestAnimationFrame
-
-### Optimize Performance
-- Dispose materials/geometries when unneeded
-- Use LOD for distant objects
-- Batch render calls
-- Use BufferGeometry
-```
+That is all. Claude Code will pick up the new skill on the next session start.
 
 ---
 
-## 🚀 Step-by-Step Setup
+## Writing effective skill descriptions
 
-### 1. Create Instructions File
-```bash
-cd project
-echo "# Three.js Development Instructions" > .instructions.md
-# Then add content from Option 1 above
-```
+The `description` field is the most important part of a skill. It is the only signal the harness uses to decide whether to activate the skill. A bad description means the skill never fires, fires constantly, or fires at the wrong time.
 
-### 2. Update Project Structure (Optional)
-If your project grows, organize like this:
-```
-project/
-├── index.html
-├── style.css
-├── src/
-│   ├── main.js           (entry point)
-│   ├── scene.js          (scene setup)
-│   ├── lights.js         (lighting)
-│   ├── geometry.js       (objects)
-│   ├── materials.js      (materials)
-│   └── interaction.js    (mouse/touch)
-├── .instructions.md      (tells Claude how to help)
-└── .claude/
-    └── settings.local.json
-```
+### Describe signals, not topics
 
-### 3. Tell Claude About It
-Share your project structure:
-```
-I have a Three.js project with:
-- Main scene in main.js
-- Custom geometries in src/geometry.js
-- Lighting setup in src/lights.js
-- OrbitControls for interaction
+Name the concrete signals that indicate the skill is relevant. File names, framework identifiers, task verbs, and domain nouns are all good signals. Abstract topic names are not.
 
-Here's what I need help with: [your request]
-```
+| Weak | Strong |
+|------|--------|
+| "Software development" | "Use when designing APIs or interfaces, deciding on module/package structure..." |
+| "Robotics" | "Use when working with ROS2 nodes, packages, launch files, rclpy/rclcpp code, CMakeLists.txt with ament..." |
+| "Code quality" | "Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes..." |
+
+### Be specific about task types
+
+Name the task verbs that should trigger the skill: *designing*, *reviewing*, *debugging*, *choosing between*, *writing production code across multiple files*. This prevents the skill from activating on shallow mentions of the domain.
+
+### Cover the full signal surface
+
+List enough signals that a task in scope will match. A ROS2 skill that only mentions "ROS2 nodes" will miss tasks involving "launch files" or "colcon builds". Cover the realistic range of entry points into that domain.
+
+### Avoid overlap with always-on context
+
+Skills work alongside `CLAUDE.md`. Do not duplicate project-level context in a skill description. Skills are for domain-specific behavioral modes, not for project facts.
 
 ---
 
-## 💬 Smart Ways to Ask for Help
+## Best practices
 
-### ❌ Vague
-```
-"Help me build a 3D scene"
-```
+### Skill content
 
-### ✅ Specific
-```
-"I need a rotating cube with:
-- Shiny gold material
-- Proper lighting to show the material
-- Subtle rotation animation
-Here's my current main.js: [paste]"
-```
+- Write instructions, not explanations. Each section should say what to do.
+- Use tables for decision matrices (when to use X vs Y).
+- Include code patterns where the correct form is non-obvious.
+- Keep the file focused. One responsibility per skill.
+- Name tradeoffs explicitly. A guideline without its tradeoff is incomplete.
 
-### ❌ Unclear
-```
-"Why doesn't my code work?"
-```
+### Skill organization
 
-### ✅ Clear
-```
-"My sphere isn't visible. I created it with:
-const geometry = new THREE.SphereGeometry(1, 32, 32);
-const material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+- One directory per skill. Do not put multiple skills in one `SKILL.md`.
+- Name directories to match the `name` frontmatter field.
+- Group related skills in the same plugin within `marketplace.json`.
 
-The canvas shows black. What's missing?"
-```
+### Skill maintenance
 
-### ❌ Generic
-```
-"Optimize my Three.js scene"
-```
-
-### ✅ Specific
-```
-"My scene with 5,000 particles is running at 10fps. 
-Each particle is a separate THREE.Mesh.
-How should I combine them for better performance?"
-```
+- Update descriptions when the domain grows. If the skill now covers new frameworks or file types, add them to the description.
+- Version `marketplace.json` with the rest of the project. Skill changes are code changes.
+- Test a new skill by running a task that should trigger it and confirming the behavior changed as expected.
 
 ---
 
-## 🎓 Examples: Requesting Help
+## Related resources
 
-### Example 1: Add Feature
-```
-I want to add mouse interaction so users can pick objects and drag them.
-My current scene has 3 cubes positioned at different locations.
-Here's my main.js: [paste]
-```
-
-### Example 2: Debug
-```
-Error: "Cannot read property 'geometry' of undefined"
-This happens when I try to rotate objects.
-Here's the relevant code: [paste]
-What's wrong?
-```
-
-### Example 3: Improve
-```
-I have a simple rotating cube. Now I want:
-1. Add 3 different colored rotating cubes
-2. Add interactive controls (mouse to rotate camera)
-3. Add smooth shadows
-
-Here's current code: [paste]
-```
-
-### Example 4: Performance
-```
-My scene with 100 mesh objects runs at 30fps.
-The main bottleneck seems to be rendering.
-Should I use:
-- Merge geometries
-- Use InstancedMesh
-- Implement LOD (Level of Detail)
-
-Current metrics: [describe]
-```
-
----
-
-## 🔗 Linking Files in Conversation
-
-### In VS Code Copilot Chat
-```
-Here's my main scene setup: 
-[Copy paste the main.js content here]
-
-And my materials file:
-[Copy paste materials.js content]
-
-I need to add shadow support.
-```
-
-### Pro Tip
-Share relevant context:
-```
-Current state:
-- main.js: Basic scene with 1 cube
-- style.css: Full viewport canvas
-- index.html: Simple bootstrap
-- Performance: 60fps with 1 object
-
-Goal: Add 100 interactive particles keeping 60fps
-Constraints: No heavy dependencies
-
-Help needed: Architecture for performance
-```
-
----
-
-## ✅ Quick Checklist for Claude Help
-
-Before asking Claude:
-- [ ] Describe what you're building
-- [ ] Share relevant code (or file names)
-- [ ] Show error messages (if any)
-- [ ] Explain what you've tried
-- [ ] Mention constraints (no external libs, performance, etc.)
-- [ ] Share project structure
-- [ ] Describe expected outcome
-
----
-
-## 📚 When to Use Each Option
-
-| Situation | Use This |
-|-----------|----------|
-| Using VS Code Copilot | `.instructions.md` + `.copilot-instructions` |
-| Using claude.ai web | Share your `.instructions.md` content in chat |
-| Building complex project | Combine all options + organize into modules |
-| Collaborating in team | Add to root `.instructions.md` with team guidelines |
-| Long-term project | Maintain updated `.claude/context.md` with patterns |
-
----
-
-## 🎯 Next Steps
-
-1. **Create `.instructions.md`** in your `project/` folder
-2. **Share your current files** with Claude (index.html, main.js, style.css)
-3. **Describe your goal** for the Three.js scene
-4. **Ask Claude** how to structure or build it
-
-Claude will then have full context to provide better, more specific help! 🚀
+- [Claude Code in Action](./01_Claude-Code-in-Action.md)
+- [Agent Skills reference](./07_Agent-Skills.md)
+- [MCP integration](./05_MCP.md)

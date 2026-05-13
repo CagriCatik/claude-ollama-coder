@@ -1,9 +1,10 @@
 # Building with the Claude API: Complete Guide
 
 ## Table of Contents
+
 1. [Tool Use Fundamentals](#tool-use-fundamentals)
 2. [Building Tool Functions](#building-tool-functions)
-3. [Tool Schemas & JSON](#tool-schemas--json)
+3. [Tool Schemas & JSON](#tool-schemas-json)
 4. [Managing Multi-Tool Conversations](#managing-multi-tool-conversations)
 5. [Advanced Tool Patterns](#advanced-tool-patterns)
 6. [Retrieval Augmented Generation](#retrieval-augmented-generation)
@@ -34,8 +35,8 @@ graph TB
     E --> E2["Current Time Tool"]
     E --> E3["Reminder/Email Tools"]
     
-    style A fill:#ffcdd2
-    style E fill:#c8e6c9
+    style A fill:#2d1212,stroke:#ef4444,color:#e2e8f0
+    style E fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### How Tools Work: The Flow
@@ -469,8 +470,8 @@ graph LR
     D --> D2["Search for relevance"]
     D --> D3["Include only needed"]
     
-    style C fill:#ffcdd2
-    style D fill:#c8e6c9
+    style C fill:#2d1212,stroke:#ef4444,color:#e2e8f0
+    style D fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### RAG Pipeline Overview
@@ -487,12 +488,7 @@ graph TB
     H --> I["9. Send to Claude with Context"]
     I --> J["10. Final Response"]
     
-    style A fill:#e3f2fd
-    style B fill:#f3e5f5
-    style C fill:#fff3e0
-    style D fill:#fce4ec
-    style E fill:#e8f5e9
-    style J fill:#c8e6c9
+    style J fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ---
@@ -840,6 +836,7 @@ deployment_checklist = {
 ## Best Practices Summary
 
 ### ✅ Do
+
 - Use tools for information outside training data
 - Provide clear tool schemas with descriptions
 - Handle errors in tool functions gracefully
@@ -848,6 +845,7 @@ deployment_checklist = {
 - Monitor RAG system accuracy
 
 ### ❌ Don't
+
 - Include tools unless necessary
 - Return sensitive data in tool results
 - Forget to maintain conversation history with tools
@@ -858,6 +856,7 @@ deployment_checklist = {
 ---
 
 ## Related Resources
+
 - [Claude 101: API Basics](./02_Claude-101.md)
 - [AI Fluency Framework](./03_AI-Fluency-Framework-Foundations.md)
 - [Model Context Protocol](./05_MCP.md)

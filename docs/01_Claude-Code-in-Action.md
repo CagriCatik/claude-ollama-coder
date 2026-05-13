@@ -1,6 +1,7 @@
 # Claude Code in Action: Complete Guide
 
 ## Table of Contents
+
 1. [Understanding Coding Assistants](#understanding-coding-assistants)
 2. [Claude Code Fundamentals](#claude-code-fundamentals)
 3. [Context Management](#context-management)
@@ -31,12 +32,8 @@ graph LR
     D --> E["Action Execution<br/>(edit files, run tests)"]
     E --> F["Result Delivery"]
     
-    style A fill:#e1f5ff
-    style B fill:#fff3e0
-    style C fill:#f3e5f5
-    style D fill:#e8f5e9
-    style E fill:#fce4ec
-    style F fill:#e0f2f1
+    style A fill:#0d2718,stroke:#00a67e,color:#e2e8f0
+    style F fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### Tool Use System: How It Works
@@ -114,11 +111,6 @@ graph LR
     D -->|Analyzed by| A
     A -->|Updates prompts| E["Generation Logic"]
     E -->|Improves| D
-    
-    style A fill:#fff3e0
-    style B fill:#f3e5f5
-    style C fill:#e8f5e9
-    style D fill:#fce4ec
 ```
 
 ### Default Tools
@@ -146,9 +138,8 @@ graph TB
     A["Irrelevant Context"] -->|Decreases| B["Model Performance"]
     C["Optimal Context"] -->|Increases| B
     
-    style A fill:#ffcdd2
-    style B fill:#fff9c4
-    style C fill:#c8e6c9
+    style A fill:#2d1212,stroke:#ef4444,color:#e2e8f0
+    style C fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### The `/init` Command
@@ -173,10 +164,6 @@ graph LR
     B["Project<br/>Team Level"] -->|Medium Priority| D
     C["Local<br/>Personal Level"] -->|Highest Priority| D
     
-    style A fill:#e3f2fd
-    style B fill:#f3e5f5
-    style C fill:#fff3e0
-    style D fill:#e8f5e9
 ```
 
 **Implementation:**
@@ -252,10 +239,6 @@ graph LR
     C --> D["Create Detailed<br/>Implementation Plan"]
     D --> E["Execute Plan<br/>Step by Step"]
     E --> F["Verify Results"]
-    
-    style B fill:#fff3e0
-    style C fill:#f3e5f5
-    style D fill:#e8f5e9
 ```
 
 #### Thinking Mode
@@ -297,11 +280,8 @@ graph TB
     
     H["/clear"] -->|Fresh Start| I["New Task"]
     
-    style B fill:#e3f2fd
-    style C fill:#f3e5f5
-    style E fill:#fff3e0
-    style G fill:#c8e6c9
-    style I fill:#ffccbc
+    style E fill:#2d1212,stroke:#ef4444,color:#e2e8f0
+    style G fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### Practical Usage
@@ -352,10 +332,6 @@ graph LR
     B --> C["Run with /command"]
     C --> D["Pass arguments<br/>if needed"]
     
-    style A fill:#e3f2fd
-    style B fill:#f3e5f5
-    style C fill:#fff3e0
-    style D fill:#c8e6c9
 ```
 
 ### Implementation
@@ -427,10 +403,6 @@ graph LR
     D -.->|Examples| F
     D -.->|Examples| G
     
-    style A fill:#fff3e0
-    style B fill:#f3e5f5
-    style C fill:#e8f5e9
-    style D fill:#fce4ec
 ```
 
 ### Installing MCP Servers
@@ -572,12 +544,8 @@ graph LR
     E --> F["Log/Verify"]
     E --> G["Feedback"]
     
-    style B fill:#fff3e0
-    style C fill:#ffcdd2
-    style D fill:#c8e6c9
-    style E fill:#e8f5e9
-    style F fill:#e3f2fd
-    style G fill:#fff9c4
+    style C fill:#2d1212,stroke:#ef4444,color:#e2e8f0
+    style D fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### Hook Types
@@ -774,10 +742,6 @@ graph TB
     E -->|Used in| G["Hooks"]
     E -->|Used in| H["Automation"]
     
-    style A fill:#fff3e0
-    style B fill:#e3f2fd
-    style C fill:#f3e5f5
-    style D fill:#c8e6c9
 ```
 
 ### TypeScript Example
@@ -861,9 +825,7 @@ graph LR
     B --> G["Integrated<br/>Tools"]
     B --> H["Automated<br/>Tasks"]
     
-    style F fill:#c8e6c9
-    style G fill:#e3f2fd
-    style H fill:#fff9c4
+    style F fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ---
@@ -894,11 +856,7 @@ graph TD
     N --> O["Git commit"]
     O --> P["Complete"]
     
-    style A fill:#e3f2fd
-    style B fill:#fff3e0
-    style F fill:#fff9c4
-    style J fill:#f3e5f5
-    style P fill:#c8e6c9
+    style P fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ---
@@ -926,8 +884,7 @@ graph TD
 
 ## Related Resources
 
-- [MCP Integration Guide](../05_MCP.md)
+- [MCP Integration Guide](05_MCP.md)
 - [GitHub Actions Setup](https://github.com/docs/actions)
-- [Claude API Documentation](../04_Building-with-the-Claude-API.md)
-- [Custom Commands Reference](./05_MCP.md#custom-commands)
-</notes>
+- [Claude API Documentation](04_Building-with-the-Claude-API.md)
+- [Custom Commands Reference](#custom-commands)

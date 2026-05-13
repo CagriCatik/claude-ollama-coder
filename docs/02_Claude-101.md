@@ -1,12 +1,13 @@
 # Claude 101: API Fundamentals & Prompt Engineering
 
 ## Table of Contents
+
 1. [Understanding Claude Models](#understanding-claude-models)
 2. [Accessing the API](#accessing-the-api)
 3. [Making Your First Request](#making-your-first-request)
 4. [Multi-Turn Conversations](#multi-turn-conversations)
-5. [System Prompts & Roles](#system-prompts--roles)
-6. [Temperature & Randomness](#temperature--randomness)
+5. [System Prompts & Roles](#system-prompts-roles)
+6. [Temperature & Randomness](#temperature-randomness)
 7. [Response Streaming](#response-streaming)
 8. [Output Control Techniques](#output-control-techniques)
 9. [Structured Data Generation](#structured-data-generation)
@@ -44,9 +45,6 @@ graph TB
     E --> E3["Cost: Cheapest"]
     E --> E4["Use: Real-time interactions"]
     
-    style C fill:#e3f2fd
-    style D fill:#f3e5f5
-    style E fill:#fff3e0
 ```
 
 ### Model Comparison Table
@@ -834,6 +832,7 @@ print(f"Best temperature: {best_temp[0]}")
 ## Best Practices Summary
 
 ### ✅ Do
+
 - Use specific, clear language
 - Include context and constraints
 - Structure with XML tags for complex prompts
@@ -843,6 +842,7 @@ print(f"Best temperature: {best_temp[0]}")
 - Maintain conversation history for context
 
 ### ❌ Don't
+
 - Expose API keys in client code
 - Pass entire conversation history indefinitely (use summary)
 - Over-complicate system prompts beyond ~500 tokens
@@ -891,10 +891,11 @@ print(chat("How is it used in AI?"))  # Context maintained
 ---
 
 ## Related Resources
+
 - [API Reference](https://docs.anthropic.com)
-- [Prompt Optimization](../03_AI-Fluency-Framework-Foundations.md)
-- [Tool Use](../04_Building-with-the-Claude-API.md)
-- [MCP Integration](../05_MCP.md)
+- [Prompt Optimization](03_AI-Fluency-Framework-Foundations.md)
+- [Tool Use](04_Building-with-the-Claude-API.md)
+- [MCP Integration](05_MCP.md)
 
 <note title="Accessing the API">
 API Access Flow = 5-step process from user input to response display

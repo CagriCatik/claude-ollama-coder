@@ -1,16 +1,35 @@
 # Subagents: Delegation & Coordination
 
 ## Table of Contents
-1. [Subagent Fundamentals](#subagent-fundamentals)
-2. [Architecture Patterns](#architecture-patterns)
-3. [Creating Subagents](#creating-subagents)
-4. [Delegation Strategies](#delegation-strategies)
-5. [Orchestration Patterns](#orchestration-patterns)
-6. [Communication Protocols](#communication-protocols)
-7. [Error Handling](#error-handling)
-8. [Scaling Subagents](#scaling-subagents)
-9. [Testing & Monitoring](#testing--monitoring)
-10. [Production Systems](#production-systems)
+
+- [Subagents: Delegation \& Coordination](#subagents-delegation--coordination)
+  - [Table of Contents](#table-of-contents)
+  - [Subagent Fundamentals](#subagent-fundamentals)
+    - [What Are Subagents?](#what-are-subagents)
+    - [When to Use Subagents](#when-to-use-subagents)
+  - [Architecture Patterns](#architecture-patterns)
+    - [Hierarchical Structure](#hierarchical-structure)
+    - [Flat Team Structure](#flat-team-structure)
+  - [Creating Subagents](#creating-subagents)
+    - [Subagent Blueprint](#subagent-blueprint)
+  - [Delegation Strategies](#delegation-strategies)
+    - [Task Decomposition](#task-decomposition)
+    - [Load Balancing](#load-balancing)
+  - [Orchestration Patterns](#orchestration-patterns)
+    - [Sequential Pipeline](#sequential-pipeline)
+    - [Parallel Processing](#parallel-processing)
+  - [Communication Protocols](#communication-protocols)
+    - [Message Format](#message-format)
+  - [Error Handling](#error-handling)
+    - [Graceful Failure](#graceful-failure)
+  - [Scaling Subagents](#scaling-subagents)
+    - [Dynamic Creation](#dynamic-creation)
+  - [Testing \& Monitoring](#testing--monitoring)
+    - [Subagent Testing](#subagent-testing)
+  - [Production Systems](#production-systems)
+    - [System Architecture](#system-architecture)
+    - [Configuration Management](#configuration-management)
+  - [Related Resources](#related-resources)
 
 ---
 
@@ -34,8 +53,7 @@ graph TB
     
     F --> G["Final Response"]
     
-    style A fill:#e3f2fd
-    style G fill:#c8e6c9
+    style G fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### When to Use Subagents
@@ -91,11 +109,6 @@ graph TD
     E --> E1["Subagent:<br/>Format"]
     E --> E2["Subagent:<br/>Export"]
     
-    style A fill:#fff3e0
-    style B fill:#e3f2fd
-    style C fill:#f3e5f5
-    style D fill:#f3e5f5
-    style E fill:#f3e5f5
 ```
 
 ### Flat Team Structure
@@ -301,8 +314,7 @@ graph TB
     
     H --> I["Final<br/>Output"]
     
-    style A fill:#fff3e0
-    style I fill:#c8e6c9
+    style I fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ```python
@@ -743,9 +755,7 @@ graph TB
     E --> F["Dashboard"]
     E --> G["Alerts"]
     
-    style A fill:#fff3e0
-    style E fill:#ffe0b2
-    style F fill:#c8e6c9
+    style F fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### Configuration Management
@@ -791,6 +801,7 @@ pool = SubagentPool(
 ---
 
 ## Related Resources
+
 - [Agent Skills](./07_Agent-Skills.md)
 - [MCP Advanced](./06_MCP-Advanded.md)
 - [Claude Code in Action](./01_Claude-Code-in-Action.md)

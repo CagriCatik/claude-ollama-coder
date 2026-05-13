@@ -1,13 +1,14 @@
 # AI Fluency Framework: Foundations
 
 ## Table of Contents
+
 1. [What is AI Fluency](#what-is-ai-fluency)
 2. [Understanding Language Models](#understanding-language-models)
 3. [How Claude Thinks](#how-claude-thinks)
-4. [Model Capabilities & Limitations](#model-capabilities--limitations)
+4. [Model Capabilities & Limitations](#model-capabilities-limitations)
 5. [Prompt Engineering Principles](#prompt-engineering-principles)
-6. [Evaluation & Iteration](#evaluation--iteration)
-7. [Clarity & Directness](#clarity--directness)
+6. [Evaluation & Iteration](#evaluation-iteration)
+7. [Clarity & Directness](#clarity-directness)
 8. [Specificity Techniques](#specificity-techniques)
 9. [Structuring Information](#structuring-information)
 10. [Learning from Examples](#learning-from-examples)
@@ -42,11 +43,7 @@ graph TB
     E --> E2["Integration patterns"]
     E --> E3["Optimization techniques"]
     
-    style A fill:#c8e6c9
-    style B fill:#e3f2fd
-    style C fill:#fff3e0
-    style D fill:#f3e5f5
-    style E fill:#fce4ec
+    style A fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### Three Pillars
@@ -73,8 +70,7 @@ graph LR
     D -->|Select| E["Next Token"]
     E -->|Repeat| B
     
-    style A fill:#e3f2fd
-    style E fill:#c8e6c9
+    style E fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 **Key Facts:**
@@ -157,11 +153,7 @@ graph TB
     
     E --> F["User Sees Result"]
     
-    style A fill:#e3f2fd
-    style B fill:#fff3e0
-    style C fill:#f3e5f5
-    style D fill:#e8f5e9
-    style E fill:#c8e6c9
+    style F fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### What Claude Does NOT Do
@@ -249,8 +241,8 @@ graph TB
     E --> E3["Use structured output"]
     E --> E4["Limit to knowledge domains"]
     
-    style A fill:#ffcdd2
-    style E fill:#c8e6c9
+    style A fill:#2d1212,stroke:#ef4444,color:#e2e8f0
+    style E fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ---
@@ -273,8 +265,7 @@ graph LR
     F --> G["Easier to Iterate"]
     G --> H["Production Ready"]
     
-    style A fill:#fff3e0
-    style H fill:#c8e6c9
+    style H fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### Anti-Patterns to Avoid
@@ -370,10 +361,7 @@ graph TB
     
     D -->|Yes| H["Deploy to Production"]
     
-    style A fill:#e3f2fd
-    style C fill:#fff3c4
-    style D fill:#fff3c4
-    style H fill:#c8e6c9
+    style H fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### Simple Evaluation Template
@@ -688,11 +676,9 @@ graph LR
     C --> D["Add Structure<br/>Score: 8.9"]
     D --> E["Production<br/>Ready"]
     
-    style A fill:#ffcdd2
-    style B fill:#fff3e0
-    style C fill:#fff9c4
-    style D fill:#c8e6c9
-    style E fill:#a5d6a7
+    style A fill:#2d1212,stroke:#ef4444,color:#e2e8f0
+    style D fill:#0d2718,stroke:#00a67e,color:#e2e8f0
+    style E fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### The Framework Applied
@@ -765,10 +751,7 @@ graph TB
     D --> D2["Score objectively"]
     D --> D3["Iterate intelligently"]
     
-    style A fill:#c8e6c9
-    style B fill:#e3f2fd
-    style C fill:#fff3e0
-    style D fill:#f3e5f5
+    style A fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### Quick Reference: Before Deploying
@@ -793,6 +776,7 @@ graph TB
 ---
 
 ## Related Resources
+
 - [Claude 101: API Fundamentals](./02_Claude-101.md)
 - [Code in Action: Practical Workflows](./01_Claude-Code-in-Action.md)
 - [Building with the API](./04_Building-with-the-Claude-API.md)

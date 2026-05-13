@@ -1,15 +1,16 @@
 # MCP Advanced: Patterns & Production
 
 ## Table of Contents
+
 1. [Advanced Tool Patterns](#advanced-tool-patterns)
 2. [Custom Transports](#custom-transports)
 3. [Resource Streaming](#resource-streaming)
 4. [Prompt Composition](#prompt-composition)
-5. [Error Handling & Resilience](#error-handling--resilience)
+5. [Error Handling & Resilience](#error-handling-resilience)
 6. [Performance Optimization](#performance-optimization)
 7. [Security Best Practices](#security-best-practices)
 8. [Multi-Server Orchestration](#multi-server-orchestration)
-9. [Testing & Debugging](#testing--debugging)
+9. [Testing & Debugging](#testing-debugging)
 10. [Production Deployment](#production-deployment)
 
 ---
@@ -34,8 +35,7 @@ graph TB
     
     G --> H["Clean Result"]
     
-    style A fill:#e3f2fd
-    style H fill:#c8e6c9
+    style H fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ```python
@@ -635,8 +635,7 @@ graph TB
     
     F --> G["Response"]
     
-    style A fill:#e3f2fd
-    style G fill:#c8e6c9
+    style G fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ```python
@@ -835,6 +834,7 @@ if __name__ == "__main__":
 ---
 
 ## Related Resources
+
 - [MCP Fundamentals](./05_MCP.md)
 - [Claude Code in Action](./01_Claude-Code-in-Action.md)
 - [Building with the API](./04_Building-with-the-Claude-API.md)

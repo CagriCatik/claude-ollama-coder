@@ -1,6 +1,7 @@
 # Agent Skills: Extending Agent Capabilities
 
 ## Table of Contents
+
 1. [Understanding Agent Skills](#understanding-agent-skills)
 2. [Built-in Agent Capabilities](#built-in-agent-capabilities)
 3. [Creating Custom Skills](#creating-custom-skills)
@@ -42,8 +43,7 @@ graph TB
     E --> E2["Conversation"]
     E --> E3["State"]
     
-    style A fill:#e3f2fd
-    style D fill:#c8e6c9
+    style D fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ### What Are Agent Skills?
@@ -291,7 +291,7 @@ graph TB
     
     H --> I["Final Result"]
     
-    style I fill:#c8e6c9
+    style I fill:#0d2718,stroke:#00a67e,color:#e2e8f0
 ```
 
 ```python
@@ -774,6 +774,7 @@ class SkillRegistry:
 ## Best Practices
 
 ### ✅ Do
+
 - Keep skills focused and single-purpose
 - Document skill requirements and constraints
 - Test skills before production
@@ -782,6 +783,7 @@ class SkillRegistry:
 - Provide clear error messages
 
 ### ❌ Don't
+
 - Create overly complex skills
 - Mix business logic across skills
 - Deploy untested skills
@@ -792,6 +794,7 @@ class SkillRegistry:
 ---
 
 ## Related Resources
+
 - [Agent Architecture](./01_Claude-Code-in-Action.md)
 - [MCP Integration](./05_MCP.md)
 - [Advanced MCP](./06_MCP-Advanded.md)

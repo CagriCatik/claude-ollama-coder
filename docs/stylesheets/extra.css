@@ -7,6 +7,12 @@
   /* Graph / agent flow accents (LangGraph style) */
   --langgraph-cyan: #22d3ee;
   --langgraph-cyan-soft: rgba(34, 211, 238, 0.15);
+  --langgraph-violet: #7c3aed;
+
+  /* Brand aliases used throughout the CSS */
+  --brand-1: #00a67e;   /* primary green */
+  --brand-2: #22d3ee;   /* cyan accent */
+  --brand-3: #7c3aed;   /* violet accent */
 
   /* Dark surfaces (Tailwind slate-inspired) */
   --surface-strong: #0f172a;
