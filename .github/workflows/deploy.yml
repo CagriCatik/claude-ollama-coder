@@ -23,12 +23,12 @@ jobs:
       - name: Install docs dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r webpage/requirements-docs.txt
+          pip install -r requirements-docs.txt
 
       - name: Deploy to GitHub Pages
         env:
           DEPLOY_TOKEN: ${{ secrets.MKDOCS_DEPLOY_TOKEN }}
-        run: mkdocs gh-deploy --force --config-file webpage/mkdocs.yml
+        run: mkdocs gh-deploy --force --config-file mkdocs.yml
 
   cleanup:
     needs: deploy
