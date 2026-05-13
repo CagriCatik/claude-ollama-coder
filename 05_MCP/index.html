@@ -1,0 +1,2690 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Use Claude CLI with local models served by Ollama">
+      
+      
+      
+        <link rel="canonical" href="https://cagricatik.github.io/claude-ollama-coder/05_MCP/">
+      
+      
+        <link rel="prev" href="../04_Building-with-the-Claude-API/">
+      
+      
+        <link rel="next" href="../06_MCP-Advanded/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Model Context Protocol - Claude-Ollama-Coder</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#model-context-protocol-mcp-claude-expert-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Claude-Ollama-Coder" class="md-header__button md-logo" aria-label="Claude-Ollama-Coder" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Claude-Ollama-Coder
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Model Context Protocol
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CagriCatik/claude-ollama-coder" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CagriCatik/claude-ollama-coder
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Claude-Ollama-Coder" class="md-nav__button md-logo" aria-label="Claude-Ollama-Coder" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Claude-Ollama-Coder
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CagriCatik/claude-ollama-coder" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CagriCatik/claude-ollama-coder
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00_Claude-Unified-Cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_Claude-Code-in-Action/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code in Action
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_Claude-101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude 101
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_AI-Fluency-Framework-Foundations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Fluency Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_Building-with-the-Claude-API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building with the Claude API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Context Protocol
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Context Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mental-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mental Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mental Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-mcp-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What MCP Solves
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-mcp-does-not-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What MCP Does Not Solve
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Primitives
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Primitives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#claude-code-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code Integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claude Code Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transport-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transport Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-a-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add a Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-resources-in-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Resources in Claude Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-prompts-as-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Prompts as Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manage-context-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manage Context Cost
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-a-minimal-mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build a Minimal MCP Server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-design-for-claude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Design for Claude
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tool Design for Claude">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tool-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Naming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Descriptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resource Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uri-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URI Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-and-templated-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static and Templated Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-vs-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource vs Tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompt-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prompt Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prompt-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-client-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Client Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Client Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elicitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elicitation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Review
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security Review">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#threat-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Threat Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Controls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claude-specific-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude-Specific Safety
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capability-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capability Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protocol-and-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocol and Compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-reliability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime Reliability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claude-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Experience
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Review Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation Review Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown Quality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_MCP-Advanded/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced MCP Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_Agent-Skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_Subagents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subagents & Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_Skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mental-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mental Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mental Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-mcp-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What MCP Solves
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-mcp-does-not-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What MCP Does Not Solve
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Primitives
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Primitives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#claude-code-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code Integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claude Code Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transport-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transport Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-a-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add a Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-resources-in-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Resources in Claude Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-prompts-as-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Prompts as Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manage-context-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manage Context Cost
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-a-minimal-mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build a Minimal MCP Server
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-design-for-claude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Design for Claude
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tool Design for Claude">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tool-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Naming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Descriptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resource Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uri-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URI Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-and-templated-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static and Templated Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-vs-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource vs Tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompt-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prompt Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prompt-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-client-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Client Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Client Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elicitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elicitation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Review
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security Review">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#threat-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Threat Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Controls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claude-specific-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude-Specific Safety
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capability-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capability Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protocol-and-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocol and Compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runtime-reliability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime Reliability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claude-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Experience
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Review Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation Review Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown Quality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="model-context-protocol-mcp-claude-expert-guide">Model Context Protocol (MCP): Claude Expert Guide<a class="headerlink" href="#model-context-protocol-mcp-claude-expert-guide" title="Permanent link">&para;</a></h1>
+<p>This guide explains Model Context Protocol from a Claude-first engineering perspective. It focuses on how Claude Code, Claude Desktop, Claude.ai, and Claude-powered applications use MCP servers to reach tools, data, and reusable workflows.</p>
+<p>Version note: this page is written against the MCP 2025-11-25 specification and current Claude Code MCP behavior as of 2026-05-13. MCP evolves quickly, so verify optional features against the client you are deploying to.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#executive-summary">Executive Summary</a></li>
+<li><a href="#mental-model">Mental Model</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#core-primitives">Core Primitives</a></li>
+<li><a href="#claude-code-integration">Claude Code Integration</a></li>
+<li><a href="#build-a-minimal-mcp-server">Build a Minimal MCP Server</a></li>
+<li><a href="#tool-design-for-claude">Tool Design for Claude</a></li>
+<li><a href="#resource-design">Resource Design</a></li>
+<li><a href="#prompt-design">Prompt Design</a></li>
+<li><a href="#advanced-client-features">Advanced Client Features</a></li>
+<li><a href="#security-review">Security Review</a></li>
+<li><a href="#production-checklist">Production Checklist</a></li>
+<li><a href="#documentation-review-checklist">Documentation Review Checklist</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#related-resources">Related Resources</a></li>
+</ol>
+<hr />
+<h2 id="executive-summary">Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
+<p>MCP is an open protocol for connecting AI applications to external systems. For Claude, MCP is the clean way to expose data sources, tools, and workflows without pasting context into chat or hard-coding one-off integrations into every application.</p>
+<p>In practical terms:</p>
+<ul>
+<li>Claude remains the reasoning layer.</li>
+<li>The host application runs the user experience, policy, permissions, and model calls.</li>
+<li>The MCP client inside the host talks to MCP servers.</li>
+<li>MCP servers expose capabilities from files, databases, APIs, SaaS products, internal tools, and custom workflows.</li>
+</ul>
+<p>MCP is not a model, agent framework, database, memory system, or permission system by itself. It is the protocol boundary that lets a Claude host discover and call capabilities in a consistent way.</p>
+<hr />
+<h2 id="mental-model">Mental Model<a class="headerlink" href="#mental-model" title="Permanent link">&para;</a></h2>
+<p>Think in ownership boundaries:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Responsibility</th>
+<th>Claude example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host</td>
+<td>Owns the user session, model calls, UI, permissions, and final orchestration</td>
+<td>Claude Code, Claude Desktop, Claude.ai, or your app</td>
+</tr>
+<tr>
+<td>MCP client</td>
+<td>Connects the host to one MCP server and translates protocol messages</td>
+<td>The MCP client embedded in Claude Code</td>
+</tr>
+<tr>
+<td>MCP server</td>
+<td>Exposes tools, resources, and prompts from an external system</td>
+<td>GitHub, Postgres, Figma, local docs, observability</td>
+</tr>
+<tr>
+<td>External system</td>
+<td>Stores data or performs real work</td>
+<td>API, database, file system, service</td>
+</tr>
+</tbody>
+</table>
+<p>Claude does not directly "use MCP" in isolation. A Claude host gives Claude selected tool definitions, selected resource content, or selected prompt output. Claude reasons over that context and may request tool calls when tools are available.</p>
+<h3 id="what-mcp-solves">What MCP Solves<a class="headerlink" href="#what-mcp-solves" title="Permanent link">&para;</a></h3>
+<p>Without MCP, every Claude integration needs custom glue:</p>
+<ul>
+<li>Hand-written tool schemas</li>
+<li>Custom API wrappers</li>
+<li>Custom authentication handling</li>
+<li>Repeated prompt templates</li>
+<li>Repeated resource loading logic</li>
+<li>Ad hoc retry and error handling</li>
+</ul>
+<p>With MCP, the integration boundary moves into reusable servers. A well-built MCP server can be reused across Claude Code, Claude Desktop, internal agents, and other compatible clients.</p>
+<h3 id="what-mcp-does-not-solve">What MCP Does Not Solve<a class="headerlink" href="#what-mcp-does-not-solve" title="Permanent link">&para;</a></h3>
+<p>MCP does not automatically make an integration safe. You still need:</p>
+<ul>
+<li>Explicit user consent for sensitive actions</li>
+<li>Least-privilege credentials</li>
+<li>Input and output validation</li>
+<li>Prompt injection defenses</li>
+<li>Audit logs</li>
+<li>Timeouts and rate limits</li>
+<li>Clear ownership of writes and destructive actions</li>
+</ul>
+<hr />
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    User["User"] --&gt; Host["Host application&lt;br/&gt;Claude Code, Claude Desktop, app"]
+    Host --&gt; Claude["Claude model"]
+    Host --&gt; Client["MCP client"]
+    Client --&gt; Server["MCP server"]
+    Server --&gt; System["External system&lt;br/&gt;API, DB, files, SaaS"]
+
+    Claude --&gt; Host
+    System --&gt; Server
+    Server --&gt; Client
+    Client --&gt; Host</code></pre>
+<p>The MCP specification separates concerns:</p>
+<ul>
+<li>Base protocol: JSON-RPC 2.0 messages, lifecycle, initialization, capability negotiation, and sessions.</li>
+<li>Transports: <code>stdio</code> for local subprocesses and Streamable HTTP for networked servers.</li>
+<li>Server features: tools, resources, and prompts.</li>
+<li>Client features: roots, sampling, and elicitation.</li>
+<li>Utilities: logging, progress, cancellation, completion, pagination, and metadata.</li>
+</ul>
+<h3 id="request-flow">Request Flow<a class="headerlink" href="#request-flow" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant Host as Claude Host
+    participant Claude
+    participant Client as MCP Client
+    participant Server as MCP Server
+    participant API as External System
+
+    User-&gt;&gt;Host: Ask for work
+    Host-&gt;&gt;Client: Discover tools/resources/prompts
+    Client-&gt;&gt;Server: initialize and list capabilities
+    Server--&gt;&gt;Client: capability metadata
+    Client--&gt;&gt;Host: available capabilities
+    Host-&gt;&gt;Claude: prompt plus selected tools/context
+    Claude--&gt;&gt;Host: tool request, if needed
+    Host-&gt;&gt;Client: call tool with arguments
+    Client-&gt;&gt;Server: tools/call
+    Server-&gt;&gt;API: perform operation
+    API--&gt;&gt;Server: result
+    Server--&gt;&gt;Client: tool result
+    Client--&gt;&gt;Host: normalized result
+    Host-&gt;&gt;Claude: tool result in conversation
+    Claude--&gt;&gt;Host: final response
+    Host--&gt;&gt;User: answer or action summary</code></pre>
+<hr />
+<h2 id="core-primitives">Core Primitives<a class="headerlink" href="#core-primitives" title="Permanent link">&para;</a></h2>
+<p>MCP has three main server-side primitives. The fastest way to choose the right one is to ask who should decide when it is used.</p>
+<table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Control</th>
+<th>Use it when</th>
+<th>Claude behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tool</td>
+<td>Model-controlled</td>
+<td>Claude should decide to take an action or run a query</td>
+<td>Claude can request invocation with typed arguments</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>Application-controlled</td>
+<td>The host should fetch data and provide it as context</td>
+<td>Claude sees content only after the host includes or references it</td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td>User-controlled</td>
+<td>Users need reusable workflows or commands</td>
+<td>Claude receives a server-authored message template</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h3>
+<p>Tools are functions that Claude can ask the host to call. They should be narrow, typed, and clearly described.</p>
+<p>Good uses:</p>
+<ul>
+<li>Query an issue tracker</li>
+<li>Read a database schema</li>
+<li>Search internal docs</li>
+<li>Create a pull request</li>
+<li>Run a test command</li>
+<li>Fetch observability data</li>
+</ul>
+<p>Avoid tools that are vague, overloaded, or unbounded. A tool named <code>do_task</code> with a free-form <code>instructions</code> parameter is usually a design failure.</p>
+<h3 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h3>
+<p>Resources expose data by URI. The host decides how and when to load them.</p>
+<p>Good uses:</p>
+<ul>
+<li><code>docs://api/authentication</code></li>
+<li><code>repo://README.md</code></li>
+<li><code>schema://billing/users</code></li>
+<li><code>incident://2026-05-13/payment-latency</code></li>
+</ul>
+<p>Resources are ideal for reference data, document content, schemas, and domain context. In Claude Code, resources can be referenced through <code>@server:protocol://path</code> when the connected server supports them.</p>
+<h3 id="prompts">Prompts<a class="headerlink" href="#prompts" title="Permanent link">&para;</a></h3>
+<p>Prompts are reusable, server-defined instruction templates. They are normally user-triggered.</p>
+<p>Good uses:</p>
+<ul>
+<li><code>/review_security_change</code></li>
+<li><code>/summarize_incident</code></li>
+<li><code>/format_document</code></li>
+<li><code>/write_release_notes</code></li>
+</ul>
+<p>In Claude Code, MCP prompts appear as commands using names such as <code>/mcp__github__list_prs</code>.</p>
+<hr />
+<h2 id="claude-code-integration">Claude Code Integration<a class="headerlink" href="#claude-code-integration" title="Permanent link">&para;</a></h2>
+<p>Claude Code can connect to MCP servers so Claude can work with tools, databases, APIs, and project-adjacent systems directly.</p>
+<h3 id="transport-options">Transport Options<a class="headerlink" href="#transport-options" title="Permanent link">&para;</a></h3>
+<p>Use the transport that matches the deployment:</p>
+<table>
+<thead>
+<tr>
+<th>Transport</th>
+<th>Best for</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stdio</code></td>
+<td>Local scripts and project-specific tools</td>
+<td>Claude Code starts the server as a subprocess</td>
+</tr>
+<tr>
+<td><code>http</code> or <code>streamable-http</code></td>
+<td>Remote or long-running services</td>
+<td>Recommended for production and cloud services</td>
+</tr>
+</tbody>
+</table>
+<p>For local <code>stdio</code> servers, Claude Code sets <code>CLAUDE_PROJECT_DIR</code> for the spawned server process. Use that environment variable when resolving project-relative paths.</p>
+<h3 id="add-a-server">Add a Server<a class="headerlink" href="#add-a-server" title="Permanent link">&para;</a></h3>
+<p>HTTP server:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>docs<span class="w"> </span>http://localhost:8000/mcp
+</code></pre></div>
+<p>Local stdio server:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>docs<span class="w"> </span>--<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>server.py
+</code></pre></div>
+<p>Project configuration example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;docs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost:8000/mcp&quot;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="use-resources-in-claude-code">Use Resources in Claude Code<a class="headerlink" href="#use-resources-in-claude-code" title="Permanent link">&para;</a></h3>
+<p>Reference resources with <code>@</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Review @docs:docs://api/authentication and identify missing examples.
+</code></pre></div>
+<p>Claude Code can list and read MCP resources when the server supports them. Resource paths should be stable, searchable, and meaningful to a human.</p>
+<h3 id="use-prompts-as-commands">Use Prompts as Commands<a class="headerlink" href="#use-prompts-as-commands" title="Permanent link">&para;</a></h3>
+<p>MCP prompts are discoverable through <code>/</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/mcp__docs__review_document api/authentication
+</code></pre></div>
+<p>The prompt output is injected into the conversation. Keep prompt arguments simple and predictable.</p>
+<h3 id="manage-context-cost">Manage Context Cost<a class="headerlink" href="#manage-context-cost" title="Permanent link">&para;</a></h3>
+<p>Each tool schema can consume context. Prefer:</p>
+<ul>
+<li>Fewer, better tools</li>
+<li>Clear tool names and descriptions</li>
+<li>Resources for large reference content</li>
+<li>Prompts for repeated workflows</li>
+<li>Tool search or deferred loading when supported</li>
+<li><code>alwaysLoad</code> only for a small set of tools needed on nearly every turn</li>
+</ul>
+<hr />
+<h2 id="build-a-minimal-mcp-server">Build a Minimal MCP Server<a class="headerlink" href="#build-a-minimal-mcp-server" title="Permanent link">&para;</a></h2>
+<p>The official Python SDK provides <code>FastMCP</code>, a high-level framework for registering tools, resources, and prompts.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server.fastmcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastMCP</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Field</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">mcp</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="p">(</span><span class="s2">&quot;docs&quot;</span><span class="p">,</span> <span class="n">json_response</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">DOCUMENTS</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="s2">&quot;api/authentication&quot;</span><span class="p">:</span> <span class="s2">&quot;# Authentication</span><span class="se">\n\n</span><span class="s2">Use OAuth scopes per environment.&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="s2">&quot;api/webhooks&quot;</span><span class="p">:</span> <span class="s2">&quot;# Webhooks</span><span class="se">\n\n</span><span class="s2">Verify signatures before processing events.&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">search_documents</span><span class="p">(</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    <span class="n">query</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Search text&quot;</span><span class="p">)],</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    <span class="n">limit</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Maximum number of matches&quot;</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">10</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Search documentation titles and content.&quot;&quot;&quot;</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>    <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>    <span class="n">normalized</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>    <span class="k">for</span> <span class="n">doc_id</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">DOCUMENTS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>        <span class="k">if</span> <span class="n">normalized</span> <span class="ow">in</span> <span class="n">doc_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="n">normalized</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>            <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;doc_id&quot;</span><span class="p">:</span> <span class="n">doc_id</span><span class="p">,</span> <span class="s2">&quot;preview&quot;</span><span class="p">:</span> <span class="n">content</span><span class="p">[:</span><span class="mi">160</span><span class="p">]})</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>    <span class="k">return</span> <span class="n">matches</span><span class="p">[:</span><span class="n">limit</span><span class="p">]</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="nd">@mcp</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;docs://</span><span class="si">{doc_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_document</span><span class="p">(</span><span class="n">doc_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Read one documentation page by document ID.&quot;&quot;&quot;</span>
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>    <span class="k">if</span> <span class="n">doc_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">DOCUMENTS</span><span class="p">:</span>
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown document ID: </span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>    <span class="k">return</span> <span class="n">DOCUMENTS</span><span class="p">[</span><span class="n">doc_id</span><span class="p">]</span>
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>
+<a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a><span class="nd">@mcp</span><span class="o">.</span><span class="n">prompt</span><span class="p">()</span>
+<a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="k">def</span><span class="w"> </span><span class="nf">review_document</span><span class="p">(</span><span class="n">doc_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a documentation review workflow for a document.&quot;&quot;&quot;</span>
+<a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>    <span class="k">return</span> <span class="p">(</span>
+<a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>        <span class="sa">f</span><span class="s2">&quot;Review docs://</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2"> for accuracy, structure, missing examples, &quot;</span>
+<a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>        <span class="s2">&quot;and unclear Claude/MCP terminology. Return concrete Markdown edits.&quot;</span>
+<a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>    <span class="p">)</span>
+<a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>
+<a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>
+<a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a>    <span class="n">mcp</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">transport</span><span class="o">=</span><span class="s2">&quot;streamable-http&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Run and inspect:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>run<span class="w"> </span>--with<span class="w"> </span>mcp<span class="w"> </span>python<span class="w"> </span>server.py
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>npx<span class="w"> </span>-y<span class="w"> </span>@modelcontextprotocol/inspector
+</code></pre></div>
+<p>Add to Claude Code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>docs<span class="w"> </span>http://localhost:8000/mcp
+</code></pre></div>
+<p>For a <code>stdio</code> server, use <code>mcp.run()</code> or <code>mcp.run(transport="stdio")</code>, then add it with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>docs<span class="w"> </span>--<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>server.py
+</code></pre></div>
+<hr />
+<h2 id="tool-design-for-claude">Tool Design for Claude<a class="headerlink" href="#tool-design-for-claude" title="Permanent link">&para;</a></h2>
+<p>Claude performs best when tools are small, named precisely, and described in terms of when to use them.</p>
+<h3 id="tool-naming">Tool Naming<a class="headerlink" href="#tool-naming" title="Permanent link">&para;</a></h3>
+<p>Use names that encode action and target:</p>
+<table>
+<thead>
+<tr>
+<th>Good</th>
+<th>Weak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>search_issues</code></td>
+<td><code>jira</code></td>
+</tr>
+<tr>
+<td><code>get_pull_request_diff</code></td>
+<td><code>get_data</code></td>
+</tr>
+<tr>
+<td><code>create_release_note_draft</code></td>
+<td><code>write</code></td>
+</tr>
+<tr>
+<td><code>query_schema_tables</code></td>
+<td><code>database_tool</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="tool-descriptions">Tool Descriptions<a class="headerlink" href="#tool-descriptions" title="Permanent link">&para;</a></h3>
+<p>Descriptions should answer:</p>
+<ul>
+<li>What the tool does</li>
+<li>When Claude should use it</li>
+<li>What each parameter means</li>
+<li>Whether the tool reads, writes, or has side effects</li>
+<li>What the result contains</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_pull_request_diff</span><span class="p">(</span><span class="n">owner</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the unified diff for one GitHub pull request.</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="sd">    Use this when Claude needs exact changed lines before reviewing,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="sd">    summarizing, or suggesting fixes. This is read-only.</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="o">...</span>
+</code></pre></div>
+<h3 id="inputs">Inputs<a class="headerlink" href="#inputs" title="Permanent link">&para;</a></h3>
+<p>Prefer structured parameters over free-form instructions:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">create_issue</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="o">...</span>
+</code></pre></div>
+<p>Avoid:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">run_anything</span><span class="p">(</span><span class="n">instructions</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="o">...</span>
+</code></pre></div>
+<p>Use validation for:</p>
+<ul>
+<li>IDs</li>
+<li>file paths</li>
+<li>URLs</li>
+<li>enum values</li>
+<li>limits</li>
+<li>date ranges</li>
+<li>write permissions</li>
+</ul>
+<h3 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">&para;</a></h3>
+<p>Tool results should be compact and task-relevant.</p>
+<p>Return:</p>
+<ul>
+<li>Stable IDs</li>
+<li>URLs or resource links for large objects</li>
+<li>Clear status fields</li>
+<li>Short summaries</li>
+<li>Structured fields Claude can reason over</li>
+</ul>
+<p>Avoid returning:</p>
+<ul>
+<li>Huge logs by default</li>
+<li>Entire database rows with secrets</li>
+<li>Raw HTML when parsed text is enough</li>
+<li>Ambiguous success messages</li>
+<li>Sensitive data not required for the task</li>
+</ul>
+<p>When returning structured content, also provide a human-readable text summary if the client or model may need backward compatibility.</p>
+<h3 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">&para;</a></h3>
+<p>Use errors to help Claude self-correct.</p>
+<p>Good error:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Document not found: api/auth. Available IDs: api/authentication, api/webhooks.
+</code></pre></div>
+<p>Weak error:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Failed.
+</code></pre></div>
+<p>For input validation problems, return tool execution errors where the client and SDK support that path. Reserve protocol errors for protocol-level problems such as unknown methods, malformed JSON-RPC, or unsupported capabilities.</p>
+<hr />
+<h2 id="resource-design">Resource Design<a class="headerlink" href="#resource-design" title="Permanent link">&para;</a></h2>
+<p>Resources are for context, not actions. They let the host fetch data and decide how much to expose to Claude.</p>
+<h3 id="uri-design">URI Design<a class="headerlink" href="#uri-design" title="Permanent link">&para;</a></h3>
+<p>Use stable, readable URI schemes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>docs://api/authentication
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>repo://src/server.py
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>schema://billing/users
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>incident://2026-05-13/payment-latency
+</code></pre></div>
+<p>Rules:</p>
+<ul>
+<li>Keep URIs stable over time.</li>
+<li>Include MIME types such as <code>text/markdown</code>, <code>application/json</code>, or <code>text/x-python</code>.</li>
+<li>Use resource templates for parameterized access.</li>
+<li>Expose indexes for discovery.</li>
+<li>Do not encode secrets in URIs.</li>
+</ul>
+<h3 id="static-and-templated-resources">Static and Templated Resources<a class="headerlink" href="#static-and-templated-resources" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nd">@mcp</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;docs://index&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">list_docs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a Markdown index of available docs.&quot;&quot;&quot;</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">doc_id</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">DOCUMENTS</span><span class="p">))</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="nd">@mcp</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;docs://</span><span class="si">{doc_id}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_doc</span><span class="p">(</span><span class="n">doc_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return one Markdown document.&quot;&quot;&quot;</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    <span class="k">if</span> <span class="n">doc_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">DOCUMENTS</span><span class="p">:</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown document ID: </span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>    <span class="k">return</span> <span class="n">DOCUMENTS</span><span class="p">[</span><span class="n">doc_id</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="resource-vs-tool">Resource vs Tool<a class="headerlink" href="#resource-vs-tool" title="Permanent link">&para;</a></h3>
+<p>Use a resource when the host should decide what context to include:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Read docs://api/authentication
+</code></pre></div>
+<p>Use a tool when Claude should decide to perform an operation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>search_documents(query=&quot;token refresh&quot;)
+</code></pre></div>
+<p>This distinction matters. Resources keep context selection explicit. Tools let Claude initiate actions.</p>
+<hr />
+<h2 id="prompt-design">Prompt Design<a class="headerlink" href="#prompt-design" title="Permanent link">&para;</a></h2>
+<p>Prompts package expert workflows so users do not have to remember long instructions.</p>
+<h3 id="prompt-structure">Prompt Structure<a class="headerlink" href="#prompt-structure" title="Permanent link">&para;</a></h3>
+<p>Good prompts include:</p>
+<ul>
+<li>Purpose</li>
+<li>Inputs</li>
+<li>Expected output format</li>
+<li>Constraints</li>
+<li>Required tools or resources</li>
+<li>Review criteria</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nd">@mcp</span><span class="o">.</span><span class="n">prompt</span><span class="p">()</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">review_mcp_doc</span><span class="p">(</span><span class="n">doc_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="s2">Review docs://</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2"> as Claude documentation.</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="s2">Check:</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="s2">1. Accuracy against MCP terminology.</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="s2">2. Clear distinction between tools, resources, and prompts.</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="s2">3. Security guidance for Claude Code users.</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="s2">4. Missing examples or unclear setup steps.</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="s2">5. Markdown structure and broken links.</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="s2">Return:</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="s2">- Findings ordered by severity.</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="s2">- Concrete rewrite suggestions.</span>
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="s2">- A concise final recommendation.</span>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a><span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="prompt-boundaries">Prompt Boundaries<a class="headerlink" href="#prompt-boundaries" title="Permanent link">&para;</a></h3>
+<p>Prompts should not hide policy, override user intent, or smuggle unreviewed instructions into the session. Treat prompt content as part of the user-visible workflow.</p>
+<hr />
+<h2 id="advanced-client-features">Advanced Client Features<a class="headerlink" href="#advanced-client-features" title="Permanent link">&para;</a></h2>
+<p>MCP also defines client-side features. Support varies by host and version.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Direction</th>
+<th>Purpose</th>
+<th>Expert use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Roots</td>
+<td>Client to server</td>
+<td>Tell servers which directories or URI roots are in scope</td>
+<td>Limit file access to the current project</td>
+</tr>
+<tr>
+<td>Sampling</td>
+<td>Server to client</td>
+<td>Let a server request model completions through the host</td>
+<td>Use sparingly for agentic server workflows</td>
+</tr>
+<tr>
+<td>Elicitation</td>
+<td>Server to client</td>
+<td>Ask the user for missing information during a workflow</td>
+<td>Ask for required choices without inventing them</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roots">Roots<a class="headerlink" href="#roots" title="Permanent link">&para;</a></h3>
+<p>Roots help servers understand allowed workspaces. A file-system server should use roots to avoid reading or writing outside the user's intended project.</p>
+<h3 id="sampling">Sampling<a class="headerlink" href="#sampling" title="Permanent link">&para;</a></h3>
+<p>Sampling lets a server ask the host to perform an LLM call. This is powerful but sensitive because it can create recursive agent behavior. Use it only when:</p>
+<ul>
+<li>The user understands why it is needed.</li>
+<li>The host can show and approve the request.</li>
+<li>The server does not receive hidden or unrelated prompt context.</li>
+</ul>
+<h3 id="elicitation">Elicitation<a class="headerlink" href="#elicitation" title="Permanent link">&para;</a></h3>
+<p>Elicitation lets a server request missing user input through the host. Use it for choices such as environment, branch name, or deployment target. Do not use it to bypass normal authentication or consent flows.</p>
+<hr />
+<h2 id="security-review">Security Review<a class="headerlink" href="#security-review" title="Permanent link">&para;</a></h2>
+<p>MCP expands what Claude can read and do. Treat every connected server as a privileged integration.</p>
+<h3 id="threat-model">Threat Model<a class="headerlink" href="#threat-model" title="Permanent link">&para;</a></h3>
+<p>Review these risks before connecting or publishing a server:</p>
+<ul>
+<li>Prompt injection from external content</li>
+<li>Tool poisoning through misleading tool descriptions</li>
+<li>Exfiltration through overly broad read tools</li>
+<li>Destructive actions without confirmation</li>
+<li>Secrets exposed in resources, logs, errors, or tool results</li>
+<li>Path traversal in file tools</li>
+<li>SQL injection or unsafe query building</li>
+<li>SSRF through URL-fetching tools</li>
+<li>Cross-origin attacks against local HTTP servers</li>
+<li>Over-broad OAuth scopes</li>
+</ul>
+<h3 id="required-controls">Required Controls<a class="headerlink" href="#required-controls" title="Permanent link">&para;</a></h3>
+<p>Use these controls for production servers:</p>
+<ul>
+<li>Validate every input.</li>
+<li>Enforce access control inside the server.</li>
+<li>Scope credentials to the smallest useful permission set.</li>
+<li>Require confirmation for writes, deletes, payments, deploys, and external sends.</li>
+<li>Bind local HTTP servers to <code>127.0.0.1</code> unless remote access is required.</li>
+<li>Validate <code>Origin</code> headers for Streamable HTTP.</li>
+<li>Use OAuth or another explicit authorization layer for remote HTTP servers.</li>
+<li>Redact secrets from logs and returned content.</li>
+<li>Add timeouts for every external call.</li>
+<li>Rate-limit expensive or sensitive tools.</li>
+<li>Keep audit logs for tool invocations.</li>
+</ul>
+<h3 id="claude-specific-safety">Claude-Specific Safety<a class="headerlink" href="#claude-specific-safety" title="Permanent link">&para;</a></h3>
+<p>Claude can reason about tool descriptions, but descriptions are not a security boundary. The host and server must enforce policy.</p>
+<p>Do not rely on Claude to:</p>
+<ul>
+<li>Notice every malicious instruction in retrieved content</li>
+<li>Refuse every unsafe tool call without host controls</li>
+<li>Distinguish trusted from untrusted tool descriptions automatically</li>
+<li>Protect secrets that the server returns unnecessarily</li>
+</ul>
+<hr />
+<h2 id="production-checklist">Production Checklist<a class="headerlink" href="#production-checklist" title="Permanent link">&para;</a></h2>
+<p>Use this checklist before shipping an MCP server.</p>
+<h3 id="capability-design">Capability Design<a class="headerlink" href="#capability-design" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Tools are narrow and have clear side-effect boundaries.</li>
+<li>Resources use stable URIs and correct MIME types.</li>
+<li>Prompts are user-triggered and auditable.</li>
+<li>Tool names are specific and discoverable.</li>
+<li>Large data is exposed as resources or paginated results.</li>
+</ul>
+<h3 id="protocol-and-compatibility">Protocol and Compatibility<a class="headerlink" href="#protocol-and-compatibility" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Server negotiates capabilities during initialization.</li>
+<li>Server supports the target protocol version.</li>
+<li>Pagination is implemented for long lists.</li>
+<li>Tool and resource lists are deterministic where practical.</li>
+<li>HTTP servers use the <code>MCP-Protocol-Version</code> header where required.</li>
+<li>Optional features are documented as optional.</li>
+</ul>
+<h3 id="runtime-reliability">Runtime Reliability<a class="headerlink" href="#runtime-reliability" title="Permanent link">&para;</a></h3>
+<ul>
+<li>External calls have timeouts.</li>
+<li>Tool execution is logged with request IDs.</li>
+<li>Errors are actionable and safe to show Claude.</li>
+<li>Long-running tasks report progress where supported.</li>
+<li>Server startup and shutdown are clean.</li>
+<li>Health checks exist for remote services.</li>
+</ul>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Credentials are scoped and rotated.</li>
+<li>Sensitive actions require confirmation.</li>
+<li>Secrets are redacted from results, logs, and traces.</li>
+<li>Path and URL inputs are constrained.</li>
+<li>Remote servers use authentication and TLS.</li>
+<li>Local Streamable HTTP servers validate <code>Origin</code>.</li>
+</ul>
+<h3 id="claude-experience">Claude Experience<a class="headerlink" href="#claude-experience" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Claude can infer when to use each tool.</li>
+<li>Tool results are concise enough for context.</li>
+<li>Resource names are readable in <code>@</code> autocomplete.</li>
+<li>Prompts produce high-quality, predictable workflows.</li>
+<li>The server does not flood context with unnecessary schemas.</li>
+</ul>
+<hr />
+<h2 id="documentation-review-checklist">Documentation Review Checklist<a class="headerlink" href="#documentation-review-checklist" title="Permanent link">&para;</a></h2>
+<p>Use this section when reviewing MCP documentation in this repository.</p>
+<h3 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The page starts with a practical definition and scope.</li>
+<li>The architecture explains host, client, server, and external system.</li>
+<li>Tools, resources, and prompts are separated by control model.</li>
+<li>Claude Code instructions are distinct from generic MCP protocol details.</li>
+<li>Advanced features are marked as optional and client-dependent.</li>
+</ul>
+<h3 id="accuracy">Accuracy<a class="headerlink" href="#accuracy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Tool use is described as model-controlled, not server-controlled.</li>
+<li>Resources are described as application-controlled context, not actions.</li>
+<li>Prompts are described as user-controlled workflows.</li>
+<li>Transports mention <code>stdio</code> and Streamable HTTP.</li>
+<li>HTTP authorization is not treated as required for <code>stdio</code>.</li>
+<li>Security guidance does not imply MCP is safe by default.</li>
+</ul>
+<h3 id="markdown-quality">Markdown Quality<a class="headerlink" href="#markdown-quality" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No pasted raw notes or transcript fragments remain.</li>
+<li>No broken XML-style note tags remain.</li>
+<li>No emoji headings or decorative symbols are used.</li>
+<li>Tables have consistent columns.</li>
+<li>Mermaid diagrams are simple and renderable.</li>
+<li>Code examples are short enough to maintain.</li>
+<li>Official references are linked at the end.</li>
+</ul>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude cannot see the server</td>
+<td>Server is not configured or Claude Code was not restarted</td>
+<td>Run <code>claude mcp list</code>, check config, then restart if needed</td>
+</tr>
+<tr>
+<td>Tools appear but fail</td>
+<td>Missing credentials or wrong environment</td>
+<td>Check server logs and environment variables</td>
+</tr>
+<tr>
+<td>Claude calls the wrong tool</td>
+<td>Names or descriptions are ambiguous</td>
+<td>Rename tools and add stronger usage descriptions</td>
+</tr>
+<tr>
+<td>Context fills up quickly</td>
+<td>Too many large tool schemas or huge results</td>
+<td>Use resources, pagination, and deferred tool loading</td>
+</tr>
+<tr>
+<td>Resource cannot be referenced</td>
+<td>URI is unstable or server lacks resource support</td>
+<td>Add <code>resources/list</code>, clear URI names, and MIME types</td>
+</tr>
+<tr>
+<td>HTTP server works locally but is unsafe</td>
+<td>Bound to all interfaces or missing Origin validation</td>
+<td>Bind to <code>127.0.0.1</code> and validate <code>Origin</code></td>
+</tr>
+<tr>
+<td>Claude repeats invalid calls</td>
+<td>Error message is too vague</td>
+<td>Return actionable errors with valid alternatives</td>
+</tr>
+<tr>
+<td>Prompt command is missing</td>
+<td>Prompt capability is not declared or client does not expose prompts</td>
+<td>Verify prompt registration and client feature support</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://modelcontextprotocol.io/docs/getting-started/intro">Official MCP documentation</a></li>
+<li><a href="https://modelcontextprotocol.io/specification/2025-11-25/basic">MCP 2025-11-25 specification</a></li>
+<li><a href="https://modelcontextprotocol.io/specification/2025-11-25/server/tools">MCP tools specification</a></li>
+<li><a href="https://modelcontextprotocol.io/specification/2025-11-25/server/resources">MCP resources specification</a></li>
+<li><a href="https://modelcontextprotocol.io/specification/2025-11-25/server/prompts">MCP prompts specification</a></li>
+<li><a href="https://modelcontextprotocol.io/specification/2025-11-25/basic/transports">MCP transports specification</a></li>
+<li><a href="https://code.claude.com/docs/en/mcp">Claude Code MCP documentation</a></li>
+<li><a href="https://github.com/modelcontextprotocol/python-sdk">Official MCP Python SDK</a></li>
+<li><a href="../04_Building-with-the-Claude-API/">Building with the Claude API</a></li>
+<li><a href="../06_MCP-Advanded/">Advanced MCP Patterns</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10.9.3/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

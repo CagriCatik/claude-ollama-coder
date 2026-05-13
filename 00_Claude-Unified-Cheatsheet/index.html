@@ -1,0 +1,2439 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Use Claude CLI with local models served by Ollama">
+      
+      
+      
+        <link rel="canonical" href="https://cagricatik.github.io/claude-ollama-coder/00_Claude-Unified-Cheatsheet/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../01_Claude-Code-in-Action/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Cheatsheet - Claude-Ollama-Coder</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#claude-unified-cheatsheet" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Claude-Ollama-Coder" class="md-header__button md-logo" aria-label="Claude-Ollama-Coder" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Claude-Ollama-Coder
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cheatsheet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CagriCatik/claude-ollama-coder" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CagriCatik/claude-ollama-coder
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Claude-Ollama-Coder" class="md-nav__button md-logo" aria-label="Claude-Ollama-Coder" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Claude-Ollama-Coder
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CagriCatik/claude-ollama-coder" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CagriCatik/claude-ollama-coder
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fast-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fast Defaults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-i-prompt-claude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How I Prompt Claude
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompt-patterns-that-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Patterns That Work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#claude-code-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claude Code Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starting-a-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starting a Session
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-hygiene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context Hygiene
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-turn-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Turn State
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Use
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tool Use">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tool-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-design-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Design Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-with-claude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP With Claude
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCP With Claude">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-an-mcp-server-in-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add an MCP Server in Claude Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-mcp-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference MCP Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Formats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown Review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patch-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Patch Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-value-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-Value Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="High-Value Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refactoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-rewrite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Rewrite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#research" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Research
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-habits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Habits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Habits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-and-context-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost and Context Control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#claude-code-commands-i-actually-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code Commands I Actually Use
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-ollama-setup-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Ollama Setup Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experienced-user-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experienced User Rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learn-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learn More
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_Claude-Code-in-Action/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code in Action
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_Claude-101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude 101
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_AI-Fluency-Framework-Foundations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Fluency Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_Building-with-the-Claude-API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building with the Claude API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_MCP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Context Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_MCP-Advanded/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced MCP Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_Agent-Skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_Subagents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subagents & Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_Skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fast-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fast Defaults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-i-prompt-claude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How I Prompt Claude
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompt-patterns-that-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prompt Patterns That Work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#claude-code-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claude Code Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starting-a-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starting a Session
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-hygiene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context Hygiene
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-turn-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Turn State
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Use
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tool Use">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tool-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-design-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Design Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-with-claude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP With Claude
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCP With Claude">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-an-mcp-server-in-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add an MCP Server in Claude Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-mcp-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference MCP Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Formats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown Review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patch-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Patch Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-value-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-Value Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="High-Value Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refactoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-rewrite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Rewrite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#research" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Research
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-habits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Habits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Habits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-and-context-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cost and Context Control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#claude-code-commands-i-actually-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claude Code Commands I Actually Use
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-ollama-setup-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Ollama Setup Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experienced-user-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experienced User Rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learn-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learn More
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="claude-unified-cheatsheet">Claude Unified Cheatsheet<a class="headerlink" href="#claude-unified-cheatsheet" title="Permanent link">&para;</a></h1>
+<p>This is the compact reference I would want open while using Claude for real work: prompting, Claude Code, API calls, tools, MCP, review workflows, and production habits. It avoids hype and focuses on patterns that hold up after many sessions.</p>
+<p>Last reviewed: 2026-05-13.</p>
+<hr />
+<h2 id="fast-defaults">Fast Defaults<a class="headerlink" href="#fast-defaults" title="Permanent link">&para;</a></h2>
+<p>Use these defaults unless you have a reason not to.</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Default choice</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General coding and writing</td>
+<td>Sonnet</td>
+<td>Best balance of speed, quality, and cost</td>
+</tr>
+<tr>
+<td>Hard architecture or agent planning</td>
+<td>Opus</td>
+<td>Stronger reasoning for ambiguous work</td>
+</tr>
+<tr>
+<td>Cheap classification, extraction, routing, drafts</td>
+<td>Haiku</td>
+<td>Fastest and cheapest useful tier</td>
+</tr>
+<tr>
+<td>Production API model IDs</td>
+<td>Pin a specific model ID</td>
+<td>Avoid silent behavior changes</td>
+</tr>
+<tr>
+<td>Claude Code model picker</td>
+<td>Use <code>/model</code></td>
+<td>Change model without restarting</td>
+</tr>
+<tr>
+<td>Long coding sessions</td>
+<td>Keep context curated</td>
+<td>More context is not always better context</td>
+</tr>
+<tr>
+<td>Factual or current questions</td>
+<td>Ask Claude to use sources or tools</td>
+<td>Claude's memory is not live data</td>
+</tr>
+<tr>
+<td>Machine output</td>
+<td>Specify exact schema</td>
+<td>Never trust formatting by implication</td>
+</tr>
+</tbody>
+</table>
+<p>Current Claude family names change over time. Check the official model list before publishing model tables. As of this review, the practical defaults are Opus 4.7 for the hardest work, Sonnet 4.6 for most work, and Haiku 4.5 for fast work.</p>
+<hr />
+<h2 id="how-i-prompt-claude">How I Prompt Claude<a class="headerlink" href="#how-i-prompt-claude" title="Permanent link">&para;</a></h2>
+<p>The best prompt is usually not long. It is specific, grounded, and testable.</p>
+<p>Use this structure:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Goal:
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>What I want done and what success looks like.
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Context:
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Relevant files, constraints, users, environment, examples, or prior decisions.
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Task:
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>The exact work to perform.
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>Constraints:
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>- Format:
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>- Length:
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>- Style:
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>- Must include:
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>- Must avoid:
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Output:
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>The exact shape I want back.
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Goal:
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Improve this API documentation so a backend engineer can implement the endpoint without asking follow-up questions.
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Context:
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>The endpoint creates customer webhooks. It is used by partner integrations. Security matters more than brevity.
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Task:
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Rewrite the docs for clarity and completeness.
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Constraints:
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>- Keep Markdown.
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>- Do not invent fields.
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>- Mark missing information as &quot;Needs confirmation&quot;.
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>- Include one successful request and one error response.
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>Output:
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>Return the rewritten Markdown only.
+</code></pre></div>
+<hr />
+<h2 id="prompt-patterns-that-work">Prompt Patterns That Work<a class="headerlink" href="#prompt-patterns-that-work" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Use it for</th>
+<th>Prompt fragment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plan first</td>
+<td>Large changes</td>
+<td>"Read the relevant files, then propose a short plan before editing."</td>
+</tr>
+<tr>
+<td>Review mode</td>
+<td>Quality checks</td>
+<td>"Review this like a senior maintainer. Findings first, then summary."</td>
+</tr>
+<tr>
+<td>Patch mode</td>
+<td>Code edits</td>
+<td>"Make the smallest safe change and run the relevant tests."</td>
+</tr>
+<tr>
+<td>Comparison</td>
+<td>Design choices</td>
+<td>"Give me three viable approaches with tradeoffs and a recommendation."</td>
+</tr>
+<tr>
+<td>Schema output</td>
+<td>Automation</td>
+<td>"Return valid JSON matching this schema. No prose."</td>
+</tr>
+<tr>
+<td>Critique pass</td>
+<td>Improving drafts</td>
+<td>"Identify unclear claims, missing assumptions, and weak structure."</td>
+</tr>
+<tr>
+<td>User empathy</td>
+<td>Product text</td>
+<td>"Rewrite for a tired user trying to finish the task quickly."</td>
+</tr>
+<tr>
+<td>Source-grounded</td>
+<td>Research</td>
+<td>"Use only the provided sources. Cite each claim."</td>
+</tr>
+</tbody>
+</table>
+<p>Avoid asking for hidden chain of thought. Ask for the useful artifact instead:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Bad:
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Think step by step and show all reasoning.
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Good:
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Give the decision, the key assumptions, and the checks that would change the decision.
+</code></pre></div>
+<hr />
+<h2 id="claude-code-workflow">Claude Code Workflow<a class="headerlink" href="#claude-code-workflow" title="Permanent link">&para;</a></h2>
+<p>Claude Code is strongest when you treat it like a careful engineer, not a command autocomplete.</p>
+<h3 id="starting-a-session">Starting a Session<a class="headerlink" href="#starting-a-session" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>claude
+</code></pre></div>
+<p>Useful first requests:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Read the README, package files, and test setup. Summarize how this project is built and tested.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Inspect the relevant files for the bug below. Do not edit yet. Tell me the smallest safe fix.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Implement the fix, keep the patch scoped, and run the relevant tests.
+</code></pre></div>
+<h3 id="model-selection">Model Selection<a class="headerlink" href="#model-selection" title="Permanent link">&para;</a></h3>
+<p>Inside Claude Code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/model
+</code></pre></div>
+<p>Practical rule:</p>
+<ul>
+<li>Use Sonnet for normal implementation.</li>
+<li>Use Opus for unclear design, deep debugging, or high-risk refactors.</li>
+<li>Use Haiku for quick checks, background tasks, and simple classification.</li>
+<li>Use <code>opusplan</code> where available when you want Opus for planning and Sonnet for execution.</li>
+</ul>
+<p>For teams, pin defaults through configuration rather than relying on whatever "default" resolves to that week.</p>
+<h3 id="context-hygiene">Context Hygiene<a class="headerlink" href="#context-hygiene" title="Permanent link">&para;</a></h3>
+<p>Good Claude Code sessions are mostly about context control.</p>
+<p>Do:</p>
+<ul>
+<li>Point Claude at the relevant files.</li>
+<li>Ask for a plan before broad edits.</li>
+<li>Keep one task per session when possible.</li>
+<li>Ask it to run tests after implementation.</li>
+<li>Ask for file and line references in reviews.</li>
+<li>Reset or compact when the thread becomes noisy.</li>
+</ul>
+<p>Avoid:</p>
+<ul>
+<li>Pasting huge logs without the failing section.</li>
+<li>Mixing unrelated tasks in one request.</li>
+<li>Asking for broad refactors without ownership boundaries.</li>
+<li>Letting Claude edit before it has read the project conventions.</li>
+</ul>
+<hr />
+<h2 id="api-basics">API Basics<a class="headerlink" href="#api-basics" title="Permanent link">&para;</a></h2>
+<p>Install:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pip<span class="w"> </span>install<span class="w"> </span>anthropic
+</code></pre></div>
+<p>Set the key:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
+</code></pre></div>
+<p>Minimal request:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anthropic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Anthropic</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">client</span> <span class="o">=</span> <span class="n">Anthropic</span><span class="p">()</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">MODEL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CLAUDE_MODEL&quot;</span><span class="p">,</span> <span class="s2">&quot;claude-sonnet-4-6&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">message</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    <span class="n">system</span><span class="o">=</span><span class="s2">&quot;You are a concise technical assistant.&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Explain retry with exponential backoff.&quot;</span><span class="p">}</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    <span class="p">],</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="p">)</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">stop_reason</span><span class="p">)</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="multi-turn-state">Multi-Turn State<a class="headerlink" href="#multi-turn-state" title="Permanent link">&para;</a></h3>
+<p>Claude does not remember API turns unless you send the conversation history.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Explain Python context managers in one paragraph.&quot;</span><span class="p">}</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">]</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">first</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="p">)</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">first</span><span class="o">.</span><span class="n">content</span><span class="p">})</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Now show a file handling example.&quot;</span><span class="p">})</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="n">second</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="streaming">Streaming<a class="headerlink" href="#streaming" title="Permanent link">&para;</a></h3>
+<p>Use streaming for long responses, interactive UIs, and avoiding HTTP timeouts on large outputs.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Draft a migration checklist.&quot;</span><span class="p">}],</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">stream</span><span class="o">.</span><span class="n">text_stream</span><span class="p">:</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="tool-use">Tool Use<a class="headerlink" href="#tool-use" title="Permanent link">&para;</a></h2>
+<p>Tools let Claude request external actions. Your application still executes the tools and sends results back.</p>
+<h3 id="tool-schema">Tool Schema<a class="headerlink" href="#tool-schema" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">tools</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="p">{</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;get_order_status&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Read the status of one customer order. This is read-only.&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="s2">&quot;input_schema&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>            <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>                <span class="s2">&quot;order_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>                    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;The public order ID, for example ord_123&quot;</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>                <span class="p">}</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>            <span class="p">},</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>            <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;order_id&quot;</span><span class="p">]</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>        <span class="p">}</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>    <span class="p">}</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="p">]</span>
+</code></pre></div>
+<h3 id="tool-loop">Tool Loop<a class="headerlink" href="#tool-loop" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What is the status of order ord_123?&quot;</span><span class="p">}</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">]</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>        <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>        <span class="n">tools</span><span class="o">=</span><span class="n">tools</span><span class="p">,</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>        <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="p">)</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">})</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">stop_reason</span> <span class="o">!=</span> <span class="s2">&quot;tool_use&quot;</span><span class="p">:</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>        <span class="k">break</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>    <span class="n">tool_results</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>    <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>        <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="s2">&quot;tool_use&quot;</span><span class="p">:</span>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>            <span class="k">continue</span>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>        <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;get_order_status&quot;</span><span class="p">:</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">get_order_status</span><span class="p">(</span><span class="n">block</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="s2">&quot;order_id&quot;</span><span class="p">])</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>            <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Unknown tool: </span><span class="si">{</span><span class="n">block</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>        <span class="n">tool_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+<a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;tool_result&quot;</span><span class="p">,</span>
+<a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>            <span class="s2">&quot;tool_use_id&quot;</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">),</span>
+<a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>        <span class="p">})</span>
+<a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>
+<a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">tool_results</span><span class="p">})</span>
+</code></pre></div>
+<h3 id="tool-design-rules">Tool Design Rules<a class="headerlink" href="#tool-design-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Prefer narrow tools over one giant tool.</li>
+<li>Put side effects in the name and description.</li>
+<li>Validate every argument.</li>
+<li>Return compact structured data.</li>
+<li>Include stable IDs and URLs when useful.</li>
+<li>Make errors actionable so Claude can retry.</li>
+<li>Put permission checks in code, not in the prompt.</li>
+</ul>
+<p>Good:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>create_refund_draft
+</code></pre></div>
+<p>Risky:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>run_customer_action
+</code></pre></div>
+<hr />
+<h2 id="mcp-with-claude">MCP With Claude<a class="headerlink" href="#mcp-with-claude" title="Permanent link">&para;</a></h2>
+<p>Model Context Protocol is how Claude hosts connect to reusable external tools, resources, and prompts.</p>
+<p>Think of MCP like this:</p>
+<table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Who controls it</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tool</td>
+<td>Claude decides when to call</td>
+<td>Actions and queries</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>Host decides what to attach</td>
+<td>Files, docs, schemas, records</td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td>User triggers a workflow</td>
+<td>Reusable commands</td>
+</tr>
+</tbody>
+</table>
+<h3 id="add-an-mcp-server-in-claude-code">Add an MCP Server in Claude Code<a class="headerlink" href="#add-an-mcp-server-in-claude-code" title="Permanent link">&para;</a></h3>
+<p>Remote HTTP server:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>sentry<span class="w"> </span>https://mcp.sentry.dev/mcp
+</code></pre></div>
+<p>Local stdio server:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>stdio<span class="w"> </span>docs<span class="w"> </span>--<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>server.py
+</code></pre></div>
+<p>Manage servers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>claude<span class="w"> </span>mcp<span class="w"> </span>list
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>claude<span class="w"> </span>mcp<span class="w"> </span>get<span class="w"> </span>docs
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>claude<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> </span>docs
+</code></pre></div>
+<p>Inside Claude Code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/mcp
+</code></pre></div>
+<h3 id="reference-mcp-resources">Reference MCP Resources<a class="headerlink" href="#reference-mcp-resources" title="Permanent link">&para;</a></h3>
+<p>Use <code>@</code> mentions when the MCP server exposes resources:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Review @docs:file://api/authentication and identify missing setup steps.
+</code></pre></div>
+<p>Resource references are best for large context. Tool calls are best for actions.</p>
+<hr />
+<h2 id="output-formats">Output Formats<a class="headerlink" href="#output-formats" title="Permanent link">&para;</a></h2>
+<p>Claude is good at following formats when the format is explicit.</p>
+<h3 id="json">JSON<a class="headerlink" href="#json" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Return valid JSON only:
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>{
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>  &quot;summary&quot;: &quot;string&quot;,
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>  &quot;risks&quot;: [&quot;string&quot;],
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>  &quot;next_actions&quot;: [&quot;string&quot;],
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>  &quot;confidence&quot;: &quot;low|medium|high&quot;
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>}
+</code></pre></div>
+<h3 id="markdown-review">Markdown Review<a class="headerlink" href="#markdown-review" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Return:
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>## Findings
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>Each finding must include severity, file, line, impact, and fix.
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>## Open Questions
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>Only include questions that block a safe recommendation.
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>## Summary
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>Two sentences max.
+</code></pre></div>
+<h3 id="patch-request">Patch Request<a class="headerlink" href="#patch-request" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Make the smallest safe code change.
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>Requirements:
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>- Preserve public behavior except for the bug fix.
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>- Follow existing project style.
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>- Add or update tests if behavior changes.
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>- Run the relevant test command.
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>Return:
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>- Files changed
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>- Tests run
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>- Any remaining risk
+</code></pre></div>
+<hr />
+<h2 id="high-value-workflows">High-Value Workflows<a class="headerlink" href="#high-value-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="code-review">Code Review<a class="headerlink" href="#code-review" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Review this change as a maintainer.
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>Prioritize:
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>1. Bugs and regressions.
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>2. Security issues.
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>3. Missing tests.
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>4. Maintainability issues that will hurt soon.
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>Give findings first. Include file and line references. Skip praise unless it affects the recommendation.
+</code></pre></div>
+<h3 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>I am seeing this failure:
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>[paste exact error]
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>Relevant code:
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>[paste or reference files]
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>Please:
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>1. Identify the most likely cause.
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>2. Show the smallest fix.
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>3. Explain what test would prove it.
+</code></pre></div>
+<h3 id="refactoring">Refactoring<a class="headerlink" href="#refactoring" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>Refactor this module for readability without changing behavior.
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>Before editing:
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>1. Identify the public behavior that must stay stable.
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>2. Identify the tests that should catch regressions.
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>3. Propose the smallest sequence of changes.
+</code></pre></div>
+<h3 id="documentation-rewrite">Documentation Rewrite<a class="headerlink" href="#documentation-rewrite" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Rewrite this documentation for an experienced developer who wants to implement quickly.
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>Keep:
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>- Accurate technical details
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>- Commands and examples
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>- Existing links when still valid
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>Improve:
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>- Structure
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>- Missing prerequisites
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>- Ambiguous wording
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>- Outdated model or tool names
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>Remove:
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>- Marketing language
+<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>- Decorative symbols
+<a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a>- Redundant explanations
+</code></pre></div>
+<h3 id="research">Research<a class="headerlink" href="#research" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>Use only the sources I provide.
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>For each claim:
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>- Cite the source.
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>- Say when you are inferring.
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>- Mark anything not supported as &quot;not established&quot;.
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>Return a concise synthesis, not a source-by-source summary.
+</code></pre></div>
+<hr />
+<h2 id="production-habits">Production Habits<a class="headerlink" href="#production-habits" title="Permanent link">&para;</a></h2>
+<h3 id="request-settings">Request Settings<a class="headerlink" href="#request-settings" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Practical guidance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td>Pin in production; use aliases only for experiments</td>
+</tr>
+<tr>
+<td><code>max_tokens</code></td>
+<td>Set it explicitly</td>
+</tr>
+<tr>
+<td><code>temperature</code></td>
+<td>Lower for factual or code tasks; higher for brainstorming</td>
+</tr>
+<tr>
+<td><code>system</code></td>
+<td>Use for durable role and policy, not task details</td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td>Include only context needed for the current turn</td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td>Keep schemas focused and clear</td>
+</tr>
+<tr>
+<td><code>stream</code></td>
+<td>Use for long or interactive responses</td>
+</tr>
+</tbody>
+</table>
+<h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
+<p>Handle these cases deliberately:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">stop_reason</span> <span class="o">==</span> <span class="s2">&quot;end_turn&quot;</span><span class="p">:</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    <span class="n">handle_final_answer</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">stop_reason</span> <span class="o">==</span> <span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>    <span class="n">handle_truncated_answer</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">stop_reason</span> <span class="o">==</span> <span class="s2">&quot;tool_use&quot;</span><span class="p">:</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>    <span class="n">handle_tool_requests</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">stop_reason</span> <span class="o">==</span> <span class="s2">&quot;stop_sequence&quot;</span><span class="p">:</span>
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>    <span class="n">handle_stop_sequence</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>    <span class="n">handle_unknown_stop_reason</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</code></pre></div>
+<p>Use backoff for transient failures:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">anthropic</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIConnectionError</span><span class="p">,</span> <span class="n">APITimeoutError</span><span class="p">,</span> <span class="n">RateLimitError</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>        <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>    <span class="k">except</span> <span class="p">(</span><span class="n">APIConnectionError</span><span class="p">,</span> <span class="n">APITimeoutError</span><span class="p">,</span> <span class="n">RateLimitError</span><span class="p">):</span>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>        <span class="k">if</span> <span class="n">attempt</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>            <span class="k">raise</span>
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
+<p>Do not treat the model as the security boundary.</p>
+<p>Checklist:</p>
+<ul>
+<li>Keep secrets out of prompts and logs.</li>
+<li>Validate tool inputs server-side.</li>
+<li>Require confirmation for destructive actions.</li>
+<li>Scope API keys narrowly.</li>
+<li>Redact sensitive tool results.</li>
+<li>Use read-only credentials for analysis tools.</li>
+<li>Treat retrieved web pages, tickets, issues, and docs as untrusted input.</li>
+<li>Log tool calls with request IDs.</li>
+</ul>
+<hr />
+<h2 id="cost-and-context-control">Cost and Context Control<a class="headerlink" href="#cost-and-context-control" title="Permanent link">&para;</a></h2>
+<p>The cheapest token is the one you do not send.</p>
+<p>Practical rules:</p>
+<ul>
+<li>Summarize old context before it becomes huge.</li>
+<li>Use retrieval instead of pasting entire folders.</li>
+<li>Use resources for large reference documents.</li>
+<li>Use Haiku for extraction and routing.</li>
+<li>Use Sonnet for most execution.</li>
+<li>Use Opus when wrong answers cost more than extra tokens.</li>
+<li>Cache stable system prompts and large repeated context where supported.</li>
+<li>Avoid returning giant tool payloads; return IDs plus summaries.</li>
+</ul>
+<p>Token intuition:</p>
+<ul>
+<li>A token is roughly a few characters of English text.</li>
+<li>Long code, logs, JSON, and tables can be token-heavy.</li>
+<li>Output tokens often cost more than input tokens.</li>
+<li><code>max_tokens</code> is a budget, not a target.</li>
+</ul>
+<hr />
+<h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Better habit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Fix everything in this repo"</td>
+<td>Give one scoped task and relevant files</td>
+</tr>
+<tr>
+<td>"Make it better"</td>
+<td>Define success criteria</td>
+</tr>
+<tr>
+<td>Pasting stale docs</td>
+<td>Ask Claude to verify against current source</td>
+</tr>
+<tr>
+<td>Trusting generated JSON blindly</td>
+<td>Validate with a parser</td>
+</tr>
+<tr>
+<td>Tool descriptions as policy</td>
+<td>Enforce policy in code</td>
+</tr>
+<tr>
+<td>Huge context dumps</td>
+<td>Use targeted files and summaries</td>
+</tr>
+<tr>
+<td>Ignoring <code>stop_reason</code></td>
+<td>Branch on it explicitly</td>
+</tr>
+<tr>
+<td>Using Opus for every task</td>
+<td>Save it for high-risk reasoning</td>
+</tr>
+<tr>
+<td>Skipping tests</td>
+<td>Ask Claude to run or explain the relevant tests</td>
+</tr>
+<tr>
+<td>Letting a session sprawl</td>
+<td>Start fresh when context becomes noisy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="task-reference">Task Reference<a class="headerlink" href="#task-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Best prompt shape</th>
+<th>Model bias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Implement a feature</td>
+<td>Goal, relevant files, constraints, tests</td>
+<td>Sonnet</td>
+</tr>
+<tr>
+<td>Debug failing tests</td>
+<td>Exact error, test command, changed files</td>
+<td>Sonnet or Opus</td>
+</tr>
+<tr>
+<td>Architecture decision</td>
+<td>Requirements, tradeoffs, constraints</td>
+<td>Opus</td>
+</tr>
+<tr>
+<td>Code review</td>
+<td>Diff, risk areas, review criteria</td>
+<td>Sonnet or Opus</td>
+</tr>
+<tr>
+<td>Data extraction</td>
+<td>Schema, examples, validation rules</td>
+<td>Haiku or Sonnet</td>
+</tr>
+<tr>
+<td>Summarization</td>
+<td>Audience, length, must-keep details</td>
+<td>Haiku or Sonnet</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Audience, scope, source material</td>
+<td>Sonnet</td>
+</tr>
+<tr>
+<td>Brainstorming</td>
+<td>Goal, constraints, examples to avoid</td>
+<td>Sonnet</td>
+</tr>
+<tr>
+<td>Classification</td>
+<td>Labels, definitions, examples</td>
+<td>Haiku</td>
+</tr>
+<tr>
+<td>Long agentic coding</td>
+<td>Plan, checkpoints, test command</td>
+<td>Sonnet with Opus planning</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="claude-code-commands-i-actually-use">Claude Code Commands I Actually Use<a class="headerlink" href="#claude-code-commands-i-actually-use" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>/model
+</code></pre></div>
+<p>Change model for the current session.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>/mcp
+</code></pre></div>
+<p>Inspect and authenticate MCP servers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>/compact
+</code></pre></div>
+<p>Compress a long conversation when useful context is getting buried.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>/clear
+</code></pre></div>
+<p>Start fresh when the session has drifted.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>/help
+</code></pre></div>
+<p>Check available commands in your installed Claude Code version.</p>
+<hr />
+<h2 id="local-ollama-setup-notes">Local Ollama Setup Notes<a class="headerlink" href="#local-ollama-setup-notes" title="Permanent link">&para;</a></h2>
+<p>This repository is about using a Claude-style workflow with local models through Ollama. When working locally, separate three things:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Example</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLI</td>
+<td><code>claude</code></td>
+<td>Developer workflow</td>
+</tr>
+<tr>
+<td>API compatibility</td>
+<td><code>ANTHROPIC_API_URL=http://localhost:11434/v1</code></td>
+<td>Request routing</td>
+</tr>
+<tr>
+<td>Model runtime</td>
+<td>Ollama</td>
+<td>Local inference</td>
+</tr>
+</tbody>
+</table>
+<p>Typical setup:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>ollama<span class="w"> </span>serve
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>ollama<span class="w"> </span>pull<span class="w"> </span>qwen3-coder
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-dummy
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_URL</span><span class="o">=</span>http://localhost:11434/v1
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>
+<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Explain this repository structure&quot;</span>
+</code></pre></div>
+<p>When using local models, expect differences from Anthropic-hosted Claude:</p>
+<ul>
+<li>Tool behavior may vary.</li>
+<li>Long context behavior may vary.</li>
+<li>Coding quality depends heavily on the local model.</li>
+<li>Model IDs may need to match your gateway or Ollama compatibility layer.</li>
+</ul>
+<hr />
+<h2 id="experienced-user-rules">Experienced User Rules<a class="headerlink" href="#experienced-user-rules" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Start with the smallest clear task.</li>
+<li>Give Claude the files it needs, not the whole world.</li>
+<li>Ask for a plan before broad edits.</li>
+<li>Make output formats explicit.</li>
+<li>Treat tools as code paths with permissions, not magic.</li>
+<li>Prefer resources over huge pasted context.</li>
+<li>Use Sonnet as the daily driver.</li>
+<li>Save Opus for the hard thinking.</li>
+<li>Use Haiku where speed matters more than nuance.</li>
+<li>Verify anything current, legal, financial, medical, or security-sensitive.</li>
+<li>Run tests after code changes.</li>
+<li>Reset the session when context quality drops.</li>
+</ol>
+<hr />
+<h2 id="learn-more">Learn More<a class="headerlink" href="#learn-more" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../01_Claude-Code-in-Action/">Claude Code in Action</a></li>
+<li><a href="../02_Claude-101/">Claude 101</a></li>
+<li><a href="../03_AI-Fluency-Framework-Foundations/">AI Fluency Framework</a></li>
+<li><a href="../04_Building-with-the-Claude-API/">Building with the Claude API</a></li>
+<li><a href="../05_MCP/">Model Context Protocol</a></li>
+<li><a href="../06_MCP-Advanded/">Advanced MCP Patterns</a></li>
+<li><a href="../07_Agent-Skills/">Agent Skills</a></li>
+<li><a href="../08_Subagents/">Subagents and Orchestration</a></li>
+</ul>
+<p>Official references:</p>
+<ul>
+<li><a href="https://platform.claude.com/docs/en/about-claude/models/overview">Claude models overview</a></li>
+<li><a href="https://platform.claude.com/docs/en/build-with-claude/streaming">Streaming Messages API</a></li>
+<li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Tool use with Claude</a></li>
+<li><a href="https://code.claude.com/docs/en/model-config">Claude Code model configuration</a></li>
+<li><a href="https://code.claude.com/docs/en/mcp">Claude Code MCP</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10.9.3/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
