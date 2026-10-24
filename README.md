@@ -13,6 +13,7 @@
     </a>
     <img alt="Python" src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square">
     <img alt="Curriculum" src="https://img.shields.io/badge/course-8%20modules%20%2B%2010%20labs-success?style=flat-square">
+    <img alt="Agent Skills" src="https://img.shields.io/badge/skills-12%20conforming%20skills-orange?style=flat-square">
   </p>
 </div>
 
@@ -20,11 +21,60 @@
 
 ## Overview
 
-**Claude-Ollama-Coder** unifies two essential developer resources into a single repository:
+**Claude-Ollama-Coder** provides a unified, production-ready environment that combines:
 
-1. **The Complete Claude Code Tutorial & Course**: An 8-module progressive curriculum (Modules 00–07) paired with 10 hands-on labs, capstone project, and starter templates.
+1. **The Complete Claude Code Tutorial & Course**: An 8-module progressive curriculum (Modules 00–07) paired with 10 hands-on labs, a comprehensive capstone project, and starter project templates.
 2. **Local & Cloud Inference Engine via Ollama**: Complete cross-platform automation and scripts that redirect the Claude CLI / Claude Code to an Anthropic-compatible Ollama endpoint (`http://localhost:11434`), enabling zero-cost, private, offline-capable agentic coding.
 3. **Deep Technical Reference Library**: An in-depth reference suite covering the Claude API, Model Context Protocol (MCP), Subagent Orchestration, and reusable Agent Skills, published via MkDocs Material to [GitHub Pages](https://cagricatik.github.io/claude-ollama-coder/).
+4. **12 Conforming Agent Skills**: Production behavioral guidelines and execution modules strictly adhering to the open [Anthropic Agent Skills standard](https://agentskills.io).
+
+> **Note on accuracy:** Claude Code's UI, model names, and features evolve rapidly. When a specific detail matters, consult the official documentation at <https://docs.anthropic.com/en/docs/claude-code> and the Ollama model library at <https://ollama.com/library>.
+
+---
+
+## The Big Picture
+
+```mermaid
+mindmap
+  root((Claude Code))
+    Setup
+      Desktop / Web / CLI / Mobile
+      Plans & usage limits
+      Open a project folder
+    Control
+      Model choice
+      Effort level
+      Permission modes
+      Plan mode
+    Context
+      CLAUDE.md
+      Memory
+      settings.json
+      @-mentions
+    Extensions
+      Skills (SKILL.md)
+      Subagents
+      MCP servers
+      Event Hooks
+      Plugins & Mods
+    Workflow
+      /context /compact /clear
+      /rewind
+      Parallel sessions & worktrees
+      /code-review
+      Routines
+    Alternative Backends
+      Ollama local & cloud
+      ollama launch claude
+      ANTHROPIC_BASE_URL
+      64k+ context requirement
+      Headless --yes & /loop
+      Telegram channel
+    Learning
+      Collect & audit sources
+      Ask, focus, reshape
+      Own: archive & retrieve
+```
 
 ---
 
@@ -37,7 +87,7 @@ flowchart LR
     A["Claude CLI / Claude Code"] --> B["Anthropic-Compatible Endpoint<br/>http://localhost:11434"]
     B --> C["Ollama Daemon"]
     C --> D{"Model Target"}
-    D -->|Local Offline| E["Local Models<br/>(qwen3-coder, deepseek-coder)"]
+    D -->|Local Offline| E["Local Models<br/>(qwen2.5-coder:14b, deepseek-coder)"]
     D -->|Cloud Acceleration| F["Ollama Cloud Models<br/>(gpt-oss:20b-cloud, 128k ctx)"]
 
     classDef cli fill:#1e293b,stroke:#3b82f6,color:#ffffff,stroke-width:2px;
@@ -56,7 +106,7 @@ flowchart LR
 ## Quick Start (Cross-Platform)
 
 ### 1. Prerequisites
-- [Ollama](https://ollama.com/) installed and running
+- [Ollama](https://ollama.com/) installed and running (`ollama serve`)
 - [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) (`claude`) installed
 - Python 3.10+ (for documentation and SDK labs)
 
@@ -71,7 +121,7 @@ flowchart LR
 ./launch-claude-ollama.sh
 
 # Or launch with a specific local model:
-./launch-claude-ollama.sh qwen3-coder
+./launch-claude-ollama.sh qwen2.5-coder:14b
 ```
 
 #### Windows
@@ -80,7 +130,7 @@ flowchart LR
 run-claude.bat
 
 :: Or specify a model
-run-claude.bat qwen3-coder
+run-claude.bat qwen2.5-coder:14b
 ```
 
 ### 3. Manual Configuration
@@ -93,7 +143,7 @@ export ANTHROPIC_AUTH_TOKEN=ollama
 export ANTHROPIC_API_KEY=""
 
 # Run Claude Code with your chosen model
-claude --model gpt-oss:20b-cloud -p "Explain this repository"
+claude --model qwen2.5-coder:14b -p "Explain this repository"
 ```
 
 ---
@@ -112,17 +162,16 @@ flowchart TD
     F --> H["06 Learning with AI"]
     H --> I["07 Running with Ollama"]
     I --> G["Labs & Capstone"]
-
-    style A fill:#e8f4fd,stroke:#1e88e5
-    style B fill:#e8f4fd,stroke:#1e88e5
-    style C fill:#fff4e5,stroke:#fb8c00
-    style D fill:#fff4e5,stroke:#fb8c00
-    style E fill:#e8f5e9,stroke:#43a047
-    style F fill:#e8f5e9,stroke:#43a047
-    style H fill:#e0f7fa,stroke:#00838f
-    style I fill:#f1f8e9,stroke:#558b2f
-    style G fill:#f3e5f5,stroke:#8e24aa
 ```
+
+### How to Use This Course
+1. Read through a module in [`docs/tutorials/`](docs/tutorials/), then complete the matching hands-on lab in [`docs/tutorials/labs/`](docs/tutorials/labs/README.md).
+2. Copy configured scaffolding from [`examples/starter-project/`](examples/starter-project/) into your own codebases.
+3. Keep [`CHEATSHEET.md`](CHEATSHEET.md) open while working.
+
+> **💡 The Golden Rule:** You don't have to memorize any of this. You only need to know a feature *exists* — then you can ask Claude to set it up for you.
+
+---
 
 ### Module Breakdown
 
@@ -157,7 +206,7 @@ Work through matching exercises in [`docs/tutorials/labs/`](docs/tutorials/labs/
 
 ## Reference Guides & Cheatsheets
 
-We provide two complementary cheatsheets tailored for different tasks:
+We provide complementary reference documents tailored for different engineering tasks:
 
 1. [**`CHEATSHEET.md`**](CHEATSHEET.md) — **Daily CLI Quick Reference**:
    Slash commands (`/init`, `/context`, `/compact`, `/rewind`, `/loop`), permission modes, Ollama CLI reference, and everyday keyboard shortcuts.
@@ -200,10 +249,7 @@ The comprehensive documentation suite lives in [`docs/`](docs/) and is hosted on
 # 1. Activate the virtual environment
 source .venv/bin/activate
 
-# 2. Install dependencies (if not already installed)
-pip install -r requirements-docs.txt
-
-# 3. Start live preview server at http://127.0.0.1:8000
+# 2. Start live preview server at http://127.0.0.1:8000
 mkdocs serve
 ```
 
@@ -213,7 +259,7 @@ mkdocs serve
 
 ## Skills Library & Agent Skills
 
-All skills conform to the [Anthropic Agent Skills standard](https://agentskills.io) and are registered in [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json). Detailed authoring instructions, lifecycle diagrams, and validation details are in [`skills/README.md`](skills/README.md).
+All skills conform to the [Anthropic Agent Skills standard](https://agentskills.io) and are registered in [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json). Detailed authoring instructions, progressive disclosure lifecycle diagrams, and validation details are in [`skills/README.md`](skills/README.md).
 
 - [`skills/_template/`](skills/_template/): Canonical template for authoring new conforming skills, with validation scripts and progressive disclosure references.
 - [`skills/claude-code-workflows/`](skills/claude-code-workflows/): Plan mode (`/plan`), context compacting (`/compact`), slash commands, subagents, and headless automation (`claude -p`).
@@ -262,8 +308,13 @@ claude-ollama-coder/
 ├── requirements-docs.txt          ← Documentation build dependencies (MkDocs Material)
 ├── mkdocs.yml                     ← MkDocs configuration & unified navigation tree
 │
+├── .claude-plugin/                ← Claude Code plugin & marketplace registration
+│   └── marketplace.json           ← Manifest declaring all 12 agent skills
+│
 ├── docs/                          ← Unified documentation hub (MkDocs source)
 │   ├── index.md                   ← Documentation homepage
+│   ├── stylesheets/extra.css      ← Claude aesthetic stylesheet (Terracotta & Dark Slate)
+│   ├── javascripts/extra.js       ← Theme-aware Mermaid initialization & enhancements
 │   └── tutorials/                 ← Complete structured course & deep dives
 │       ├── index.md               ← Course overview & learning path
 │       ├── unified-cheatsheet.md  ← Comprehensive technical reference
@@ -278,8 +329,21 @@ claude-ollama-coder/
 │       └── labs/                  ← Hands-on exercises (Lab 01 to Lab 10 + Capstone)
 │
 ├── examples/                      ← Starter project template (.claude/) & learning archive
-├── skills/                        ← Reusable skills (Karpathy, ROS2, Architecture, Eng)
-└── archive/                       ← Preserved legacy artifacts (e.g. archive/README_.md)
+└── skills/                        ← Reusable Agent Skills adhering to Anthropic specification
+    ├── README.md                  ← Authoring guide & skills architecture documentation
+    ├── _template/                 ← Canonical template, references, and validate_skill.py
+    ├── api-design/                ← REST API design & RFC 7807 error standards
+    ├── claude-code-workflows/     ← Plan mode, /compact, slash commands & worktrees
+    ├── git-workflow/              ← Conventional Commits, worktrees, PR summaries
+    ├── karpathy-guidelines/       ← Avoiding common LLM pitfalls (Karpathy guidelines)
+    ├── mcp-builder/               ← FastMCP & TypeScript MCP server development
+    ├── ollama-claude-bridge/      ← Local Ollama routing, env vars & troubleshooting
+    ├── ollama-modelfile-tuning/   ← Modelfile 64k ctx, sampling parameters, stop tokens
+    ├── python-modern-practices/   ← Python 3.10+ typing, Pydantic v2, httpx, pytest
+    ├── ros2/                      ← ROS2 node design, QoS, launch files, colcon
+    ├── secure-coding/             ← Injection defense, path traversal, secret masking
+    ├── software-architecture/     ← Macro patterns, ADRs, cohesion & coupling
+    └── software-engineering/      ← Interfaces, error hierarchies, domain layout
 ```
 
 ---
@@ -289,10 +353,4 @@ claude-ollama-coder/
 When running Claude Code with Ollama, note that:
 - **Context Window**: Claude Code requires a large context window. Ensure your model is configured with at least `64k` tokens (`num_ctx 65536` in Modelfile or Ollama configuration).
 - **Tool Calling**: Ensure your chosen model supports tool use. Cloud-backed models like `gpt-oss:20b-cloud` and `gpt-oss:120b-cloud` provide 128k context and robust function calling with 0 MB disk usage.
-- **Offline Local**: For local offline work, recommended models include `qwen3-coder`, `qwen2.5-coder:14b`, and `deepseek-coder`.
-
----
-
-## Archive Policy
-
-Per repository maintenance rules, files are never deleted without historical preservation. Legacy materials (such as the initial raw curriculum README `README_.md`) are safely cataloged in [`archive/`](archive/).
+- **Offline Local**: For local offline work, recommended models include `qwen2.5-coder:14b`, `qwen2.5-coder:32b`, and `deepseek-coder-v2:16b`.
