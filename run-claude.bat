@@ -10,19 +10,6 @@ rem   run-claude-ollama.bat gpt-oss:120b-cloud
 set "OLLAMA_URL=http://localhost:11434"
 set "DEFAULT_MODEL=gpt-oss:20b-cloud"
 
-if "%~1"=="" (
-    set "MODEL=%DEFAULT_MODEL%"
-) else (
-    set "MODEL=%~1"
-)
-
-echo ==========================================
-echo Claude CLI with Ollama
-echo ==========================================
-echo Ollama endpoint: %OLLAMA_URL%
-echo Model: %MODEL%
-echo.
-
 where ollama >nul 2>nul
 if errorlevel 1 (
     echo [ERROR] ollama is not installed or not in PATH.
@@ -45,6 +32,30 @@ if errorlevel 1 (
     echo   ollama serve
     echo.
 )
+
+if "%~1"=="" (
+    echo ============================================================
+    echo        Claude Code + Ollama Interactive Launcher
+    echo ============================================================
+    echo Ollama endpoint: %OLLAMA_URL%
+    echo.
+    echo Available Ollama models:
+    ollama list
+    echo.
+    echo Default model: %DEFAULT_MODEL%
+    set /p "USER_MODEL=Select model (press Enter for default [%DEFAULT_MODEL%]): "
+    if defined USER_MODEL (
+        set "MODEL=%USER_MODEL%"
+    ) else (
+        set "MODEL=%DEFAULT_MODEL%"
+    )
+) else (
+    set "MODEL=%~1"
+)
+
+echo.
+echo Launching Claude CLI with model: %MODEL%
+echo.
 
 rem Verify model exists
 ollama list | findstr /i /c:"%MODEL%" >nul

@@ -152,38 +152,13 @@ else
 fi
 
 # ------------------------------------------------------------------------------
-# Step 5: Generate Project Launcher Script
+# Step 5: Ensure Project Launcher Script
 # ------------------------------------------------------------------------------
-echo -e "\n${BOLD}5. Generating project launcher...${NC}"
+echo -e "\n${BOLD}5. Ensuring project launchers...${NC}"
 
-cat << EOF > launch-claude-ollama.sh
-#!/usr/bin/env bash
-# ==============================================================================
-# launch-claude-ollama.sh
-# Run Claude Code configured to use local or cloud models served by Ollama.
-# ==============================================================================
-
-# Default model configured during setup
-DEFAULT_MODEL="$TARGET_MODEL"
-
-# If first argument looks like a model name (not starting with -), use it
-if [ -n "\$1" ] && [[ "\$1" != -* ]]; then
-    ACTIVE_MODEL="\$1"
-    shift
-else
-    ACTIVE_MODEL="\${CLAUDE_OLLAMA_MODEL:-\$DEFAULT_MODEL}"
-fi
-
-export ANTHROPIC_BASE_URL="http://localhost:11434"
-export ANTHROPIC_AUTH_TOKEN="ollama"
-export ANTHROPIC_API_KEY=""
-
-echo "🚀 Launching Claude Code with Ollama model: \$ACTIVE_MODEL"
-exec claude --model "\$ACTIVE_MODEL" "\$@"
-EOF
-
-chmod +x launch-claude-ollama.sh
-echo -e "   ${GREEN}✔ Created executable launcher:${NC} ./launch-claude-ollama.sh"
+chmod +x run-claude.sh launch-claude-ollama.sh 2>/dev/null || true
+ln -sf run-claude.sh run-claude 2>/dev/null || true
+echo -e "   ${GREEN}✔ Interactive launcher ready:${NC} ./run-claude.sh (or ./launch-claude-ollama.sh)"
 
 # ------------------------------------------------------------------------------
 # Step 6: Quick Connection Verification
@@ -205,9 +180,10 @@ echo -e "\n${BOLD}${GREEN}=====================================================$
 echo -e "${BOLD}${GREEN}               Setup Complete!                        ${NC}"
 echo -e "${BOLD}${GREEN}=====================================================${NC}"
 echo -e "You can now run Claude Code with Ollama in any of these ways:\n"
-echo -e "1. ${BOLD}Using the launcher script:${NC}"
-echo -e "   ${BLUE}./launch-claude-ollama.sh${NC}                     # Starts with $TARGET_MODEL"
-echo -e "   ${BLUE}./launch-claude-ollama.sh gpt-oss:20b-cloud${NC}   # Starts with a cloud model\n"
+echo -e "1. ${BOLD}Using the interactive launcher:${NC}"
+echo -e "   ${BLUE}./run-claude.sh${NC}                           # Interactive menu to select any model"
+echo -e "   ${BLUE}./run-claude.sh $TARGET_MODEL${NC}            # Direct start with $TARGET_MODEL"
+echo -e "   ${BLUE}./run-claude.sh gpt-oss:20b-cloud${NC}        # Direct start with cloud model\n"
 echo -e "2. ${BOLD}Using Ollama's built-in launcher:${NC}"
 echo -e "   ${BLUE}ollama launch claude${NC}"
 echo -e "   ${BLUE}ollama launch claude --config${NC}            # Choose model interactively\n"

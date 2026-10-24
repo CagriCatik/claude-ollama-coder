@@ -70,13 +70,14 @@ Instead of manual environment variables, use the included cross-platform launche
 - **macOS / Linux**:
   ```bash
   ./setup-ollama.sh              # Automated setup & verification
-  ./launch-claude-ollama.sh      # Launch session with default model
-  ./launch-claude-ollama.sh qwen3-coder  # Launch with specific model
+  ./run-claude.sh                # Interactive launcher: prompts you to pick any model
+  ./run-claude.sh beam:cloud     # Direct launch with specific cloud model
+  ./run-claude.sh qwen3-coder    # Direct launch with local model
   ```
 - **Windows**:
   ```bat
-  run-claude.bat
-  run-claude.bat qwen3-coder
+  run-claude.bat                 :: Interactive launcher with model picker
+  run-claude.bat beam:cloud      :: Direct launch with specific model
   ```
 
 ---

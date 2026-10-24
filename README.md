@@ -114,22 +114,26 @@ flowchart LR
 
 #### macOS & Linux
 ```bash
-# Automated setup (checks Ollama, Claude CLI, pulls recommended model):
+# Automated setup (checks Ollama, Claude CLI, registers cloud models):
 ./setup-ollama.sh
 
-# Launch Claude Code with default model (gpt-oss:20b-cloud):
-./launch-claude-ollama.sh
+# Interactive launcher: prompts you to pick from all available local & cloud models:
+./run-claude.sh
+# (or ./run-claude or ./launch-claude-ollama.sh)
 
-# Or launch with a specific local model:
-./launch-claude-ollama.sh qwen2.5-coder:14b
+# Or launch directly with a specific model:
+./run-claude.sh beam:cloud
+./run-claude.sh gpt-oss:20b-cloud
+./run-claude.sh qwen2.5-coder:14b
 ```
 
 #### Windows
 ```bat
-:: Check prerequisites and launch Claude Code with Ollama
+:: Interactive launcher (shows available Ollama models to pick from)
 run-claude.bat
 
-:: Or specify a model
+:: Or specify a model directly
+run-claude.bat beam:cloud
 run-claude.bat qwen2.5-coder:14b
 ```
 
@@ -300,8 +304,10 @@ claude-ollama-coder/
 ├── .env.example                   ← Environment template for endpoints & model selection
 │
 ├── setup-ollama.sh                ← Automated macOS/Linux setup & verification script
-├── launch-claude-ollama.sh        ← Quick macOS/Linux Claude Code launcher with Ollama
-├── run-claude.bat                 ← Windows Claude Code launcher with Ollama
+├── install-ollama-cloud-models.sh ← Pull/register Ollama cloud models (beam, nemotron, etc.)
+├── run-claude.sh                  ← Interactive macOS/Linux Claude Code launcher with model picker
+├── launch-claude-ollama.sh        ← Quick launcher shortcut (delegates to run-claude.sh)
+├── run-claude.bat                 ← Windows interactive Claude Code launcher with Ollama
 ├── run-mkdocs.sh                  ← macOS/Linux MkDocs live preview server launcher
 ├── run-mkdocs.bat                 ← Windows MkDocs live documentation server launcher
 │
