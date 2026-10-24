@@ -1,3 +1,4 @@
+: << 'BATCH_EOF'
 @echo off
 setlocal
 echo ==========================================
@@ -21,3 +22,12 @@ echo.
 python -m mkdocs serve
 
 endlocal
+exit /b %errorlevel%
+BATCH_EOF
+
+# -----------------------------------------------------------------------------
+# POSIX shell execution fallback (macOS / Linux)
+# When executed directly in bash/zsh as ./run-mkdocs.bat
+# -----------------------------------------------------------------------------
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+exec "$SCRIPT_DIR/run-mkdocs.sh" "$@"

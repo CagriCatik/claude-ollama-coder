@@ -1,11 +1,12 @@
+: << 'BATCH_EOF'
 @echo off
 setlocal
 
 rem Claude -> Ollama bridge for local model usage
 rem Usage:
-rem   run-claude-ollama.bat
-rem   run-claude-ollama.bat qwen3-coder
-rem   run-claude-ollama.bat gpt-oss:120b-cloud
+rem   run-claude.bat
+rem   run-claude.bat qwen3-coder
+rem   run-claude.bat gpt-oss:120b-cloud
 
 set "OLLAMA_URL=http://localhost:11434"
 set "DEFAULT_MODEL=gpt-oss:20b-cloud"
@@ -83,3 +84,12 @@ echo.
 claude --model "%MODEL%"
 
 endlocal
+exit /b %errorlevel%
+BATCH_EOF
+
+# -----------------------------------------------------------------------------
+# POSIX shell execution fallback (macOS / Linux)
+# When executed directly in bash/zsh as ./run-claude.bat
+# -----------------------------------------------------------------------------
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+exec "$SCRIPT_DIR/run-claude.sh" "$@"
