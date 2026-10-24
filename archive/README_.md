@@ -51,7 +51,6 @@ claude-code-tutorial/
 ├── GLOSSARY.md               ← all the terms in one place
 ├── requirements.txt          ← Python dependencies (ollama, oterm, rich, anthropic)
 ├── .env.example              ← template for endpoints & model config
-├── progress-dashboard.html   ← interactive visual course progress tracker (open in browser)
 ├── setup-ollama.sh           ← automated Ollama + Claude Code setup script
 ├── launch-claude-ollama.sh   ← shortcut launcher for Ollama models
 ├── 00-getting-started/

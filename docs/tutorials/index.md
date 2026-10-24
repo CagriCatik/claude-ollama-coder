@@ -67,19 +67,6 @@ Each module is paired with a concrete hands-on lab in [`labs/`](labs/README.md):
 
 ---
 
-## Interactive Progress Dashboard
-
-The repository includes an interactive, browser-based tracker: [`progress-dashboard.html`](https://github.com/CagriCatik/claude-ollama-coder/blob/main/progress-dashboard.html).
-
-Open it locally in your browser:
-```bash
-open progress-dashboard.html       # macOS
-xdg-open progress-dashboard.html   # Linux
-start progress-dashboard.html      # Windows
-```
-
----
-
 ## Reference Guides
 
 - [**Unified Reference Cheatsheet**](unified-cheatsheet.md) — Production habits, token budgets, prompt caching, and tool schemas.

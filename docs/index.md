@@ -94,7 +94,6 @@ Explore the modular hands-on tutorial located in the repository:
 - **Module 06 — Learning with AI**: Collect → Understand → Own research workflow
 - **Module 07 — Running with Ollama**: 64k+ context, headless automation, storybook & screenshot loops
 - **Hands-on Labs (01 – 10) & Capstone**: Practical exercises for each module
-- **Progress Dashboard**: Open `progress-dashboard.html` in your browser to track completion
 
 ### 📚 Technical Reference Guides (MkDocs)
 The guides in the top navigation provide deep architectural references:

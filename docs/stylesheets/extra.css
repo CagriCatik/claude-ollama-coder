@@ -307,16 +307,17 @@ html {
 }
 
 /* ------------------------------------------------------------------------------
-   Mermaid Diagrams (Claude Aesthetic)
+   Mermaid Diagrams (Claude Aesthetic & Dark Mode High Contrast)
    ------------------------------------------------------------------------------ */
 .mermaid {
   margin: 1.4rem 0;
-  padding: 1.2rem;
+  padding: 1.25rem;
   border-radius: 10px;
   border: 1px solid var(--surface-border);
   background-color: var(--card-bg);
   overflow-x: auto;
   text-align: center;
+  transition: background-color 200ms ease, border-color 200ms ease;
 }
 
 .mermaid svg {
@@ -326,6 +327,25 @@ html {
   height: auto;
 }
 
+/* Ensure all text (SVG text, tspan, and foreignObject spans/divs) is crisp & visible */
+.mermaid text,
+.mermaid tspan,
+.mermaid .label,
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .labelText,
+.mermaid .loopText,
+.mermaid .messageText,
+.mermaid .noteText,
+.mermaid .actor,
+.mermaid span,
+.mermaid p {
+  fill: var(--md-default-fg-color) !important;
+  color: var(--md-default-fg-color) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Flowchart Nodes */
 .mermaid .node rect,
 .mermaid .node circle,
 .mermaid .node polygon,
@@ -335,8 +355,10 @@ html {
   stroke-width: 1.5px !important;
 }
 
+/* Flowchart Edges & Connectors */
 .mermaid .edgePath .path,
-.mermaid .flowchart-link {
+.mermaid .flowchart-link,
+.mermaid path.link {
   stroke: var(--mermaid-edge) !important;
   stroke-width: 1.5px !important;
 }
@@ -346,15 +368,73 @@ html {
   fill: var(--mermaid-edge) !important;
 }
 
+/* Clusters / Subgraphs */
 .mermaid .cluster rect {
   fill: var(--mermaid-cluster-bg) !important;
-  stroke: var(--surface-border) !important;
+  stroke: var(--mermaid-node-border) !important;
+  stroke-width: 1px !important;
 }
 
-.mermaid .label,
-.mermaid text {
-  fill: var(--md-default-fg-color) !important;
-  font-family: var(--font-sans) !important;
+/* Sequence Diagrams (Actors, Lines, Messages, Notes) */
+.mermaid rect.actor {
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--mermaid-node-border) !important;
+  stroke-width: 1.5px !important;
+}
+
+.mermaid line.actor-line,
+.mermaid .messageLine0,
+.mermaid .messageLine1,
+.mermaid .loopLine {
+  stroke: var(--mermaid-edge) !important;
+  stroke-width: 1.5px !important;
+}
+
+.mermaid rect.note {
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--claude-terracotta) !important;
+  stroke-width: 1.5px !important;
+}
+
+.mermaid .labelBox {
+  fill: var(--mermaid-cluster-bg) !important;
+  stroke: var(--claude-terracotta) !important;
+}
+
+/* Dark Mode Specific Overrides */
+[data-md-color-scheme="slate"] .mermaid {
+  background-color: #1A1916 !important;
+  border-color: #332F2A !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid text,
+[data-md-color-scheme="slate"] .mermaid tspan,
+[data-md-color-scheme="slate"] .mermaid .nodeLabel,
+[data-md-color-scheme="slate"] .mermaid .edgeLabel,
+[data-md-color-scheme="slate"] .mermaid .label,
+[data-md-color-scheme="slate"] .mermaid span {
+  fill: #F4F3EE !important;
+  color: #F4F3EE !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .edgeLabel {
+  background-color: #1A1916 !important;
+}
+
+/* Light Mode Specific Overrides */
+[data-md-color-scheme="default"] .mermaid {
+  background-color: #FFFFFF !important;
+  border-color: #E5E2D9 !important;
+}
+
+[data-md-color-scheme="default"] .mermaid text,
+[data-md-color-scheme="default"] .mermaid tspan,
+[data-md-color-scheme="default"] .mermaid .nodeLabel,
+[data-md-color-scheme="default"] .mermaid .edgeLabel,
+[data-md-color-scheme="default"] .mermaid .label,
+[data-md-color-scheme="default"] .mermaid span {
+  fill: #1C1917 !important;
+  color: #1C1917 !important;
 }
 
 /* ------------------------------------------------------------------------------

@@ -22,7 +22,7 @@
 
 **Claude-Ollama-Coder** unifies two essential developer resources into a single repository:
 
-1. **The Complete Claude Code Tutorial & Course**: An 8-module progressive curriculum (Modules 00–07) paired with 10 hands-on labs, capstone project, starter templates, and an interactive browser-based progress dashboard (`progress-dashboard.html`).
+1. **The Complete Claude Code Tutorial & Course**: An 8-module progressive curriculum (Modules 00–07) paired with 10 hands-on labs, capstone project, and starter templates.
 2. **Local & Cloud Inference Engine via Ollama**: Complete cross-platform automation and scripts that redirect the Claude CLI / Claude Code to an Anthropic-compatible Ollama endpoint (`http://localhost:11434`), enabling zero-cost, private, offline-capable agentic coding.
 3. **Deep Technical Reference Library**: An in-depth reference suite covering the Claude API, Model Context Protocol (MCP), Subagent Orchestration, and reusable Agent Skills, published via MkDocs Material to [GitHub Pages](https://cagricatik.github.io/claude-ollama-coder/).
 
@@ -153,17 +153,6 @@ Work through matching exercises in [`docs/tutorials/labs/`](docs/tutorials/labs/
 - [**Lab 10**](docs/tutorials/labs/lab-10-ollama.md): Full Ollama local integration
 - [**Capstone**](docs/tutorials/labs/capstone.md): Complete end-to-end workspace build
 
-### Interactive Course Dashboard
-
-Track your learning progress across modules and labs in the interactive dashboard:
-- File: [`progress-dashboard.html`](progress-dashboard.html)
-- Open in your browser:
-  ```bash
-  open progress-dashboard.html       # macOS
-  xdg-open progress-dashboard.html   # Linux
-  start progress-dashboard.html      # Windows
-  ```
-
 ---
 
 ## Reference Guides & Cheatsheets
@@ -261,7 +250,6 @@ claude-ollama-coder/
 ├── README.md                      ← Master unified portal & complete curriculum map
 ├── CHEATSHEET.md                  ← Daily CLI slash commands & shortcuts reference
 ├── GLOSSARY.md                    ← Course vocabulary with module lesson links
-├── progress-dashboard.html        ← Interactive visual course tracker
 ├── .env.example                   ← Environment template for endpoints & model selection
 │
 ├── setup-ollama.sh                ← Automated macOS/Linux setup & verification script
