@@ -13,7 +13,7 @@
     </a>
     <img alt="Python" src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square">
     <img alt="Curriculum" src="https://img.shields.io/badge/course-8%20modules%20%2B%2010%20labs-success?style=flat-square">
-    <img alt="Agent Skills" src="https://img.shields.io/badge/skills-12%20conforming%20skills-orange?style=flat-square">
+    <img alt="Agent Skills" src="https://img.shields.io/badge/skills-13%20conforming%20skills-orange?style=flat-square">
   </p>
 </div>
 
@@ -26,7 +26,7 @@
 1. **The Complete Claude Code Tutorial & Course**: An 8-module progressive curriculum (Modules 00–07) paired with 10 hands-on labs, a comprehensive capstone project, and starter project templates.
 2. **Local & Cloud Inference Engine via Ollama**: Complete cross-platform automation and scripts that redirect the Claude CLI / Claude Code to an Anthropic-compatible Ollama endpoint (`http://localhost:11434`), enabling zero-cost, private, offline-capable agentic coding.
 3. **Deep Technical Reference Library**: An in-depth reference suite covering the Claude API, Model Context Protocol (MCP), Subagent Orchestration, and reusable Agent Skills, published via MkDocs Material to [GitHub Pages](https://cagricatik.github.io/claude-ollama-coder/).
-4. **12 Conforming Agent Skills**: Production behavioral guidelines and execution modules strictly adhering to the open [Anthropic Agent Skills standard](https://agentskills.io).
+4. **13 Conforming Agent Skills**: Production behavioral guidelines and execution modules strictly adhering to the open [Anthropic Agent Skills standard](https://agentskills.io).
 
 > **Note on accuracy:** Claude Code's UI, model names, and features evolve rapidly. When a specific detail matters, consult the official documentation at <https://docs.anthropic.com/en/docs/claude-code> and the Ollama model library at <https://ollama.com/library>.
 
@@ -262,6 +262,7 @@ mkdocs serve
 All skills conform to the [Anthropic Agent Skills standard](https://agentskills.io) and are registered in [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json). Detailed authoring instructions, progressive disclosure lifecycle diagrams, and validation details are in [`skills/README.md`](skills/README.md).
 
 - [`skills/_template/`](skills/_template/): Canonical template for authoring new conforming skills, with validation scripts and progressive disclosure references.
+- [`skills/agent-to-agent/`](skills/agent-to-agent/): Multi-agent orchestration, supervisor-worker topologies, structured message envelopes, subagent state handoffs.
 - [`skills/claude-code-workflows/`](skills/claude-code-workflows/): Plan mode (`/plan`), context compacting (`/compact`), slash commands, subagents, and headless automation (`claude -p`).
 - [`skills/ollama-claude-bridge/`](skills/ollama-claude-bridge/): Pointing Claude Code to local Ollama endpoints, environment setup, model tags, and tool-calling compatibility.
 - [`skills/mcp-builder/`](skills/mcp-builder/): Building Model Context Protocol (MCP) servers in Python (FastMCP) or TypeScript, stdio/SSE transports.
@@ -309,7 +310,7 @@ claude-ollama-coder/
 ├── mkdocs.yml                     ← MkDocs configuration & unified navigation tree
 │
 ├── .claude-plugin/                ← Claude Code plugin & marketplace registration
-│   └── marketplace.json           ← Manifest declaring all 12 agent skills
+│   └── marketplace.json           ← Manifest declaring all 13 agent skills
 │
 ├── docs/                          ← Unified documentation hub (MkDocs source)
 │   ├── index.md                   ← Documentation homepage
@@ -332,6 +333,7 @@ claude-ollama-coder/
 └── skills/                        ← Reusable Agent Skills adhering to Anthropic specification
     ├── README.md                  ← Authoring guide & skills architecture documentation
     ├── _template/                 ← Canonical template, references, and validate_skill.py
+    ├── agent-to-agent/            ← Multi-agent orchestration, envelopes & handoffs
     ├── api-design/                ← REST API design & RFC 7807 error standards
     ├── claude-code-workflows/     ← Plan mode, /compact, slash commands & worktrees
     ├── git-workflow/              ← Conventional Commits, worktrees, PR summaries

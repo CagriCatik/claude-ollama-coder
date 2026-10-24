@@ -148,10 +148,11 @@ flowchart TD
 
 ## Skills in this project
 
-This project ships 12 production skills plus a canonical template and conformance validator. They are defined in `skills/` and registered in `.claude-plugin/marketplace.json`.
+This project ships 13 production skills plus a canonical template and conformance validator. They are defined in `skills/` and registered in `.claude-plugin/marketplace.json`.
 
 | Skill | Path | Focus & Trigger Signals |
 |---|---|---|
+| **agent-to-agent** | `skills/agent-to-agent/SKILL.md` | Multi-agent orchestration, supervisor-worker topologies, structured message envelopes, subagent state handoffs, recursion bounds. |
 | **api-design** | `skills/api-design/SKILL.md` | REST/HTTP API design, RFC 7807 problem details, HTTP verbs and status codes, cursor vs offset pagination, idempotency keys. |
 | **claude-code-workflows** | `skills/claude-code-workflows/SKILL.md` | Plan mode (`/plan`), context compacting (`/compact`), slash commands, subagents, headless runs (`claude -p`), git worktree isolation. |
 | **git-workflow** | `skills/git-workflow/SKILL.md` | Conventional Commits, git worktrees for parallel Claude sessions, atomic commits, PR summaries, Co-Authored-By attribution. |

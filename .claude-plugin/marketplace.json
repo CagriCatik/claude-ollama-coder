@@ -14,6 +14,7 @@
       "source": "./",
       "strict": false,
       "skills": [
+        "./skills/agent-to-agent",
         "./skills/api-design",
         "./skills/claude-code-workflows",
         "./skills/git-workflow",
