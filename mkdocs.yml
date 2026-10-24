@@ -125,6 +125,16 @@ nav:
       - Local Tactics & Storybook: tutorials/07-running-with-ollama/05-local-model-tactics-and-storybook.md
       - Ollama CLI Reference: tutorials/07-running-with-ollama/06-cli-tools-and-python-sdk.md
       - Gateways & Alternative Providers: tutorials/07-running-with-ollama/07-alternative-providers-and-gateways.md
+  - 08 Jetson Thor Platform:
+      - Overview: tutorials/08-jetson-thor-platform/README.md
+      - Target Architecture: tutorials/08-jetson-thor-platform/01-target-architecture.md
+      - 9-Phase Roadmap & Gates: tutorials/08-jetson-thor-platform/02-roadmap-and-milestones.md
+      - Hardware Audit & Infrastructure: tutorials/08-jetson-thor-platform/03-hardware-audit-and-infrastructure.md
+      - Inference with Ollama & vLLM: tutorials/08-jetson-thor-platform/04-local-inference-ollama-vllm.md
+      - Agentic Coding MVP & Benchmarks: tutorials/08-jetson-thor-platform/05-agentic-coding-mvp.md
+      - Autonomous Execution & Worktrees: tutorials/08-jetson-thor-platform/06-autonomous-execution-and-worktrees.md
+      - Engineering Adapters (STM32, KiCad, ROS): tutorials/08-jetson-thor-platform/07-engineering-adapters.md
+      - Operations, Monitoring & Brief: tutorials/08-jetson-thor-platform/08-monitoring-operations-and-brief.md
   - Hands-on Labs & Capstone:
       - Labs Overview: tutorials/labs/README.md
       - Lab 01 - First Project: tutorials/labs/lab-01-first-project.md

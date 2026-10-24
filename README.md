@@ -12,7 +12,7 @@
       <img alt="Claude CLI" src="https://img.shields.io/badge/Claude%20CLI-compatible-6B46C1?style=flat-square">
     </a>
     <img alt="Python" src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square">
-    <img alt="Curriculum" src="https://img.shields.io/badge/course-8%20modules%20%2B%2010%20labs-success?style=flat-square">
+    <img alt="Curriculum" src="https://img.shields.io/badge/course-9%20modules%20%2B%2010%20labs-success?style=flat-square">
     <img alt="Agent Skills" src="https://img.shields.io/badge/skills-14%20conforming%20skills-orange?style=flat-square">
   </p>
 </div>
@@ -23,7 +23,7 @@
 
 **Claude-Ollama-Coder** provides a unified, production-ready environment that combines:
 
-1. **The Complete Claude Code Tutorial & Course**: An 8-module progressive curriculum (Modules 00–07) paired with 10 hands-on labs, a comprehensive capstone project, and starter project templates.
+1. **The Complete Claude Code Tutorial & Course**: A 9-module progressive curriculum (Modules 00–08) paired with 10 hands-on labs, a comprehensive capstone project, and starter project templates.
 2. **Local & Cloud Inference Engine via Ollama**: Complete cross-platform automation and scripts that redirect the Claude CLI / Claude Code to an Anthropic-compatible Ollama endpoint (`http://localhost:11434`), enabling zero-cost, private, offline-capable agentic coding.
 3. **Deep Technical Reference Library**: An in-depth reference suite covering the Claude API, Model Context Protocol (MCP), Subagent Orchestration, and reusable Agent Skills, published via MkDocs Material to [GitHub Pages](https://cagricatik.github.io/claude-ollama-coder/).
 4. **14 Conforming Agent Skills**: Production behavioral guidelines and execution modules strictly adhering to the open [Anthropic Agent Skills standard](https://agentskills.io).
@@ -335,6 +335,7 @@ claude-ollama-coder/
 │       ├── 05-beyond-code/        ← Module 05: Projects, connectors + Claude API & RAG
 │       ├── 06-learning-with-ai/   ← Module 06: Collect → Understand → Own
 │       ├── 07-running-with-ollama/← Module 07: Local models, headless, 64k+
+│       ├── 08-jetson-thor-platform/← Module 08: NVIDIA Thor, Blackwell, M0–M8
 │       └── labs/                  ← Hands-on exercises (Lab 01 to Lab 10 + Capstone)
 │
 ├── examples/                      ← Starter templates & microservices (agent-dispatcher, swarm-coordinator)

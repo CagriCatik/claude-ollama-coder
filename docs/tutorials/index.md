@@ -17,7 +17,8 @@ flowchart TD
     E --> F["05 Beyond Code"]
     F --> H["06 Learning with AI"]
     H --> I["07 Running with Ollama"]
-    I --> G["Labs & Capstone"]
+    I --> J["08 Jetson Thor Platform"]
+    J --> G["Labs & Capstone"]
 
     style A fill:#e8f4fd,stroke:#1e88e5
     style B fill:#e8f4fd,stroke:#1e88e5
@@ -27,12 +28,13 @@ flowchart TD
     style F fill:#e8f5e9,stroke:#43a047
     style H fill:#e0f7fa,stroke:#00838f
     style I fill:#f1f8e9,stroke:#558b2f
+    style J fill:#ede7f6,stroke:#673ab7
     style G fill:#f3e5f5,stroke:#8e24aa
 ```
 
 ---
 
-## Course Modules (00 – 07)
+## Course Modules (00 – 08)
 
 | Level | Module | Progressive Lessons & Integrated Deep Dives |
 |---|---|---|
@@ -44,6 +46,7 @@ flowchart TD
 | 🟩 **Advanced** | [**05 Beyond Code**](05-beyond-code/README.md) | Projects & memory, connectors, Cowork & scheduled tasks, Claude Design → Claude Code, building custom tools.<br>• *Deep Dive:* [Building with Claude API & RAG](05-beyond-code/06-building-with-claude-api-and-rag.md). |
 | 🟦 **Applied** | [**06 Learning with AI**](06-learning-with-ai/README.md) | Collect → Understand → Own framework: Learn any technical topic fast with Claude + a research notebook, and maintain a permanent archive. |
 | 🟧 **Alternative** | [**07 Running with Ollama**](07-running-with-ollama/README.md) | Connect Claude Code to local hardware or Ollama Cloud, 64k+ context requirements, headless CI (`--yes`), `/loop`, Telegram channels, Storybook screenshot loops. |
+| 🟪 **Hardware/Edge** | [**08 Jetson Thor Platform**](08-jetson-thor-platform/README.md) | NVIDIA Jetson AGX Thor local inference platform, Blackwell FP4/FP8, 9-phase roadmap (M0–M8), vLLM prefix caching, autonomous Git worktrees, engineering adapters (STM32, KiCad, ROS 2). |
 
 ---
 
