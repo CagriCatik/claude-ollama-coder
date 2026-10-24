@@ -1,0 +1,472 @@
+/* ==============================================================================
+   Claude-Ollama-Coder — Unified Claude Design System
+   Brand Palette: Claude Terracotta (#D97757), Warm Sand & Warm Dark Charcoal
+   Philosophy: Simple, Useful, High-Contrast, Calm & Focused
+   ============================================================================== */
+
+:root {
+  /* Claude Brand Colors */
+  --claude-terracotta: #D97757;
+  --claude-terracotta-hover: #C26343;
+  --claude-terracotta-light: #F0997B;
+  --claude-terracotta-subtle: rgba(217, 119, 87, 0.12);
+  --claude-amber: #D4A373;
+  --claude-sage: #2E7D5B;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
+}
+
+/* ------------------------------------------------------------------------------
+   Dark Theme (Default / Slate) — Warm Charcoal & Terracotta
+   ------------------------------------------------------------------------------ */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #D97757;
+  --md-primary-fg-color--light: #F0997B;
+  --md-primary-fg-color--dark: #C26343;
+  --md-accent-fg-color: #D97757;
+  --md-accent-fg-color--transparent: rgba(217, 119, 87, 0.15);
+
+  --md-default-bg-color: #141413;
+  --md-default-bg-color--light: #1F1E1B;
+  --md-default-bg-color--lighter: #282724;
+  --md-default-fg-color: #F4F3EE;
+  --md-default-fg-color--light: #A8A29E;
+  --md-default-fg-color--lighter: #78716C;
+
+  --md-code-bg-color: #1B1A17;
+  --md-code-fg-color: #EDECE8;
+  --md-code-hl-color: rgba(217, 119, 87, 0.15);
+
+  --md-typeset-a-color: #E2886A;
+  --md-typeset-kbd-color: #282724;
+
+  --surface-border: #2D2B27;
+  --surface-hover: #262420;
+  --card-bg: #1B1A17;
+  --ring-focus: rgba(217, 119, 87, 0.4);
+
+  --mermaid-node-bg: #22201D;
+  --mermaid-node-border: #D97757;
+  --mermaid-edge: #D4A373;
+  --mermaid-cluster-bg: #1A1916;
+}
+
+/* ------------------------------------------------------------------------------
+   Light Theme (Default) — Warm Sand, Parchment & Crisp Terracotta
+   ------------------------------------------------------------------------------ */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #D97757;
+  --md-primary-fg-color--light: #F0997B;
+  --md-primary-fg-color--dark: #C26343;
+  --md-accent-fg-color: #D97757;
+  --md-accent-fg-color--transparent: rgba(217, 119, 87, 0.12);
+
+  --md-default-bg-color: #FAF9F5;
+  --md-default-bg-color--light: #F3F2EB;
+  --md-default-bg-color--lighter: #E7E5DC;
+  --md-default-fg-color: #1C1917;
+  --md-default-fg-color--light: #57534E;
+  --md-default-fg-color--lighter: #8A857D;
+
+  --md-code-bg-color: #F2EFE8;
+  --md-code-fg-color: #1C1917;
+  --md-code-hl-color: rgba(217, 119, 87, 0.12);
+
+  --md-typeset-a-color: #C26343;
+  --md-typeset-kbd-color: #EFECE4;
+
+  --surface-border: #E5E2D9;
+  --surface-hover: #F0ECE1;
+  --card-bg: #FFFFFF;
+  --ring-focus: rgba(217, 119, 87, 0.35);
+
+  --mermaid-node-bg: #FFFFFF;
+  --mermaid-node-border: #D97757;
+  --mermaid-edge: #8A857D;
+  --mermaid-cluster-bg: #F4F2EB;
+}
+
+/* ------------------------------------------------------------------------------
+   Typography & Baseline
+   ------------------------------------------------------------------------------ */
+body, input {
+  font-family: var(--font-sans);
+}
+
+code, kbd, pre {
+  font-family: var(--font-mono);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ------------------------------------------------------------------------------
+   Header & Navigation Bar
+   ------------------------------------------------------------------------------ */
+.md-header {
+  background-color: var(--md-default-bg-color--light);
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: none;
+}
+
+.md-header__title {
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+
+.md-tabs {
+  background-color: var(--md-default-bg-color--light);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.md-tabs__link {
+  font-weight: 500;
+  transition: color 150ms ease, opacity 150ms ease;
+}
+
+.md-tabs__link--active {
+  color: var(--claude-terracotta) !important;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------------------
+   Sidebar Navigation (Clean, Simple, Useful)
+   ------------------------------------------------------------------------------ */
+.md-sidebar--primary .md-nav__title {
+  color: var(--claude-terracotta);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.md-sidebar--primary .md-nav__item > .md-nav__link {
+  border-radius: 6px;
+  padding: 0.3rem 0.55rem;
+  margin: 0.06rem 0;
+  font-size: 0.82rem;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.md-sidebar--primary .md-nav__item > .md-nav__link:hover {
+  background-color: var(--claude-terracotta-subtle);
+  color: var(--claude-terracotta);
+}
+
+.md-sidebar--primary .md-nav__item--active > .md-nav__link,
+.md-sidebar--primary .md-nav__item > .md-nav__link--active {
+  color: var(--claude-terracotta) !important;
+  font-weight: 600;
+  background-color: var(--claude-terracotta-subtle);
+}
+
+.md-sidebar--primary .md-nav__item--nested > .md-nav__link {
+  font-weight: 600;
+  font-size: 0.84rem;
+}
+
+/* ------------------------------------------------------------------------------
+   Content & Articles
+   ------------------------------------------------------------------------------ */
+.md-typeset h1 {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--md-default-fg-color);
+  margin-bottom: 0.8rem;
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  border-bottom: 1px solid var(--surface-border);
+  padding-bottom: 0.4rem;
+  margin-top: 1.8rem;
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+  margin-top: 1.4rem;
+}
+
+.md-typeset hr {
+  border-bottom: 1px solid var(--surface-border);
+  margin: 2rem 0;
+}
+
+/* Links */
+.md-typeset a {
+  color: var(--md-typeset-a-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 140ms ease, text-decoration 140ms ease;
+}
+
+.md-typeset a:hover {
+  text-decoration: underline;
+  color: var(--claude-terracotta-hover);
+}
+
+/* ------------------------------------------------------------------------------
+   Tables (Simple, Useful, Clean Zebra-Striping)
+   ------------------------------------------------------------------------------ */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin: 1.2rem 0;
+  font-size: 0.86rem;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-default-bg-color--lighter);
+  color: var(--md-default-fg-color);
+  font-weight: 600;
+  border-bottom: 1px solid var(--surface-border);
+  padding: 0.6rem 0.85rem;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.md-typeset table:not([class]) tr:last-child td {
+  border-bottom: none;
+}
+
+.md-typeset table:not([class]) tr:hover td {
+  background-color: var(--claude-terracotta-subtle);
+}
+
+/* ------------------------------------------------------------------------------
+   Code Blocks & Pre (High Readability)
+   ------------------------------------------------------------------------------ */
+.md-typeset code {
+  border-radius: 5px;
+  padding: 0.15em 0.38em;
+  font-size: 0.85em;
+  background-color: var(--md-code-bg-color);
+  color: var(--md-code-fg-color);
+  border: 1px solid var(--surface-border);
+}
+
+.md-typeset pre > code {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.highlight {
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  background-color: var(--md-code-bg-color);
+  margin: 1.2rem 0;
+  overflow: hidden;
+}
+
+/* Copy button */
+.md-clipboard {
+  color: var(--md-default-fg-color--light);
+  transition: color 140ms ease;
+}
+
+.md-clipboard:hover {
+  color: var(--claude-terracotta);
+}
+
+/* ------------------------------------------------------------------------------
+   Admonitions (Callouts) — Styled with Claude Colors
+   ------------------------------------------------------------------------------ */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 8px;
+  border-left: 4px solid var(--claude-terracotta);
+  border-top: 1px solid var(--surface-border);
+  border-right: 1px solid var(--surface-border);
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.md-typeset .admonition.note,
+.md-typeset .admonition.info {
+  border-left-color: var(--claude-terracotta);
+}
+
+.md-typeset .admonition.tip,
+.md-typeset .admonition.success {
+  border-left-color: var(--claude-sage);
+}
+
+.md-typeset .admonition.warning {
+  border-left-color: var(--claude-amber);
+}
+
+/* ------------------------------------------------------------------------------
+   Mermaid Diagrams (Claude Aesthetic & Dark Mode High Contrast)
+   ------------------------------------------------------------------------------ */
+.mermaid {
+  margin: 1.4rem 0;
+  padding: 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--surface-border);
+  background-color: var(--card-bg);
+  overflow-x: auto;
+  text-align: center;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.mermaid svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure all text (SVG text, tspan, and foreignObject spans/divs) is crisp & visible */
+.mermaid text,
+.mermaid tspan,
+.mermaid .label,
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .labelText,
+.mermaid .loopText,
+.mermaid .messageText,
+.mermaid .noteText,
+.mermaid .actor,
+.mermaid span,
+.mermaid p {
+  fill: var(--md-default-fg-color) !important;
+  color: var(--md-default-fg-color) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Flowchart Nodes */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node polygon,
+.mermaid .node path {
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--mermaid-node-border) !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Flowchart Edges & Connectors */
+.mermaid .edgePath .path,
+.mermaid .flowchart-link,
+.mermaid path.link {
+  stroke: var(--mermaid-edge) !important;
+  stroke-width: 1.5px !important;
+}
+
+.mermaid marker path {
+  stroke: var(--mermaid-edge) !important;
+  fill: var(--mermaid-edge) !important;
+}
+
+/* Clusters / Subgraphs */
+.mermaid .cluster rect {
+  fill: var(--mermaid-cluster-bg) !important;
+  stroke: var(--mermaid-node-border) !important;
+  stroke-width: 1px !important;
+}
+
+/* Sequence Diagrams (Actors, Lines, Messages, Notes) */
+.mermaid rect.actor {
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--mermaid-node-border) !important;
+  stroke-width: 1.5px !important;
+}
+
+.mermaid line.actor-line,
+.mermaid .messageLine0,
+.mermaid .messageLine1,
+.mermaid .loopLine {
+  stroke: var(--mermaid-edge) !important;
+  stroke-width: 1.5px !important;
+}
+
+.mermaid rect.note {
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--claude-terracotta) !important;
+  stroke-width: 1.5px !important;
+}
+
+.mermaid .labelBox {
+  fill: var(--mermaid-cluster-bg) !important;
+  stroke: var(--claude-terracotta) !important;
+}
+
+/* Dark Mode Specific Overrides */
+[data-md-color-scheme="slate"] .mermaid {
+  background-color: #1A1916 !important;
+  border-color: #332F2A !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid text,
+[data-md-color-scheme="slate"] .mermaid tspan,
+[data-md-color-scheme="slate"] .mermaid .nodeLabel,
+[data-md-color-scheme="slate"] .mermaid .edgeLabel,
+[data-md-color-scheme="slate"] .mermaid .label,
+[data-md-color-scheme="slate"] .mermaid span {
+  fill: #F4F3EE !important;
+  color: #F4F3EE !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .edgeLabel {
+  background-color: #1A1916 !important;
+}
+
+/* Light Mode Specific Overrides */
+[data-md-color-scheme="default"] .mermaid {
+  background-color: #FFFFFF !important;
+  border-color: #E5E2D9 !important;
+}
+
+[data-md-color-scheme="default"] .mermaid text,
+[data-md-color-scheme="default"] .mermaid tspan,
+[data-md-color-scheme="default"] .mermaid .nodeLabel,
+[data-md-color-scheme="default"] .mermaid .edgeLabel,
+[data-md-color-scheme="default"] .mermaid .label,
+[data-md-color-scheme="default"] .mermaid span {
+  fill: #1C1917 !important;
+  color: #1C1917 !important;
+}
+
+/* ------------------------------------------------------------------------------
+   Buttons & Action Elements
+   ------------------------------------------------------------------------------ */
+.md-button {
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 150ms ease;
+}
+
+.md-button--primary {
+  background-color: var(--claude-terracotta);
+  border-color: var(--claude-terracotta);
+  color: #FFFFFF !important;
+}
+
+.md-button--primary:hover {
+  background-color: var(--claude-terracotta-hover);
+  border-color: var(--claude-terracotta-hover);
+}
+
+/* ------------------------------------------------------------------------------
+   Search Bar (Subtle & Crisp)
+   ------------------------------------------------------------------------------ */
+.md-search__input {
+  border-radius: 8px;
+  background-color: var(--md-default-bg-color--lighter);
+  border: 1px solid var(--surface-border);
+}
+
+.md-search__input:focus {
+  border-color: var(--claude-terracotta);
+  box-shadow: 0 0 0 2px var(--ring-focus);
+}
