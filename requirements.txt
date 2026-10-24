@@ -1,0 +1,31 @@
+# ==============================================================================
+# Claude Code + Ollama Tutorial — Python Dependencies
+# ==============================================================================
+# Install all packages:
+#   pip install -r requirements.txt
+#
+# Recommended: install inside a virtual environment:
+#   python3 -m venv .venv
+#   source .venv/bin/activate
+#   pip install -r requirements.txt
+#
+# Note: For MkDocs documentation site dependencies, see:
+#   requirements-docs.txt
+# ==============================================================================
+
+# Core Ollama & AI SDKs
+ollama>=0.4.0                 # Official Ollama Python library for chat, embeddings, and tool calling
+anthropic>=0.40.0             # Anthropic SDK (can point to Ollama via base_url="http://localhost:11434")
+pydantic>=2.10.0              # Data validation and structured tool-calling schemas
+
+# Terminal, TUI & Developer Tools
+oterm>=0.7.0                  # Interactive Text User Interface (TUI) for chatting with Ollama in terminal
+rich>=13.9.0                  # Rich terminal formatting, syntax highlighting, and progress bars
+python-dotenv>=1.0.1          # Load environment variables (.env) for ANTHROPIC_BASE_URL, OLLAMA_API_KEY
+
+# HTTP & API Utilities
+httpx>=0.28.0                 # Modern async HTTP client for querying Ollama REST APIs directly
+
+# Code Quality & Testing (Used in Labs)
+pytest>=8.3.0                 # Test runner for code exercises
+ruff>=0.8.0                   # Ultra-fast Python linter and formatter

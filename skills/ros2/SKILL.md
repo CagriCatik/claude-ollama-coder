@@ -1,11 +1,35 @@
 ---
 name: ros2
 description: ROS2 development guidelines. Use when working with ROS2 nodes, packages, launch files, rclpy/rclcpp code, CMakeLists.txt with ament, package.xml, colcon builds, topics/services/actions, QoS settings, lifecycle nodes, TF2 transforms, or any robotics middleware code.
+license: Apache-2.0
+compatibility: ROS2 Humble, Iron, or Jazzy (rclpy, rclcpp)
+metadata:
+  author: claude-ollama-coder
+  version: "1.0.0"
 ---
 
 # ROS2 Development
 
 Opinionated guidelines for writing robust, production-quality ROS2 code in Python (rclpy) and C++ (rclcpp).
+
+---
+
+## When to Use This Skill
+
+- **Trigger Scenarios:**
+  - When creating or modifying ROS2 nodes (`rclpy.node.Node` or `rclcpp::Node`).
+  - When configuring ROS2 packages, `package.xml`, `CMakeLists.txt` (ament_cmake), or `setup.py` (ament_python).
+  - When authoring Python launch files (`LaunchDescription`, `Node`, `DeclareLaunchArgument`).
+  - When selecting and configuring QoS profiles (Best Effort vs Reliable, Transient Local vs Volatile).
+  - When implementing publishers, subscribers, service clients/servers, or action servers.
+  - When working with TF2 transforms (`TransformBroadcaster`, `Buffer`, lookup_transform).
+  - When debugging `colcon build` or executor threading deadlocks.
+
+- **When NOT to Use:**
+  - Do not use for ROS1 (Catkin / roscpp / rospy) systems.
+  - Do not use for generic web/cloud microservices unrelated to robotics middleware.
+
+---
 
 ## Node Design
 
@@ -15,6 +39,8 @@ One node, one responsibility. Resist the urge to build multi-purpose nodes — t
 - For C++: write **component nodes** (`rclcpp_components`) so they can be loaded into a container process — eliminates per-node process overhead and simplifies lifecycle coordination.
 - Use **lifecycle nodes** (`rclcpp_lifecycle::LifecycleNode`) when startup/shutdown sequencing matters — hardware drivers, sensors, stateful processors. Implement all four transitions: `on_configure`, `on_activate`, `on_deactivate`, `on_cleanup`.
 - Keep constructors fast. Move blocking initialization (device open, calibration) into `on_configure`.
+
+---
 
 ## Topics vs Services vs Actions
 
@@ -27,6 +53,8 @@ Pick by the communication pattern, not convenience:
 | Action | Long-running tasks needing feedback and cancellation — navigation, manipulation, planning. |
 
 **Deadlock rule:** Never call a service client inside a callback on the same single-threaded executor. Use async calls or a dedicated callback group on a second thread.
+
+---
 
 ## QoS Profiles
 
@@ -60,17 +88,21 @@ LATCHED_QOS = QoSProfile(
 )
 ```
 
+---
+
 ## Executor Patterns
 
 - **SingleThreadedExecutor**: Default. Safe when no callback blocks.
 - **MultiThreadedExecutor + ReentrantCallbackGroup**: Parallel callbacks. All shared state must be thread-safe.
 - **MultiThreadedExecutor + MutuallyExclusiveCallbackGroup**: Serialize a subset while parallelizing others — common pattern for mixing a fast sensor callback with a slow processing callback.
 
-Never `time.sleep()` or `rclcpp::sleep_for()` inside a callback. Use a timer node for periodic work.
+Never `time.sleep()` or `rclcpp::sleep_for()` inside a callback. Use a timer node for periodic work:
 
 ```python
 self.timer = self.create_timer(0.1, self.timer_callback)  # 10 Hz
 ```
+
+---
 
 ## Parameters
 
@@ -89,9 +121,11 @@ self.add_on_set_parameters_callback(self._on_params_changed)
 
 Load parameters from YAML files in launch — never hardcode values that operators might tune.
 
+---
+
 ## Launch Files (Python)
 
-Prefer Python launch over XML for any non-trivial configuration.
+Prefer Python launch over XML for any non-trivial configuration:
 
 ```python
 from launch import LaunchDescription
@@ -124,9 +158,11 @@ def generate_launch_description():
     ])
 ```
 
+---
+
 ## Package Organization
 
-```
+```text
 my_package/
 ├── CMakeLists.txt          # ament_cmake or ament_cmake_python
 ├── package.xml             # all deps declared here
@@ -144,6 +180,8 @@ my_package/
     └── test_launch.py
 ```
 
+---
+
 ## Build & Test
 
 ```bash
@@ -160,6 +198,8 @@ source install/setup.bash
 
 `--symlink-install` avoids rebuilding Python packages on source edits. Don't use it for C++ release builds.
 
+---
+
 ## TF2
 
 - Publish dynamic transforms with `TransformBroadcaster`, static ones with `StaticTransformBroadcaster`.
@@ -174,6 +214,8 @@ except (tf2_ros.LookupException, tf2_ros.ExtrapolationException) as e:
     self.get_logger().warn(f'TF lookup failed: {e}')
     return
 ```
+
+---
 
 ## Error Handling
 
@@ -193,6 +235,8 @@ def topic_callback(self, msg):
         self.get_logger().error(f'Processing failed: {e}')
 ```
 
+---
+
 ## C++ Patterns
 
 ```cpp
@@ -210,6 +254,8 @@ auto node = std::make_shared<MyNode>();
 rclcpp::spin(node);  // blocks; use spin_some only if you own the loop
 ```
 
+---
+
 ## Naming Conventions
 
 - Topics: `snake_case`, verb-object form — `scan`, `cmd_vel`, `joint_states`
@@ -217,3 +263,15 @@ rclcpp::spin(node);  // blocks; use spin_some only if you own the loop
 - Packages: `snake_case` — `my_robot_bringup`, `sensor_driver`
 - Messages/Services: `PascalCase` — `LidarScan.msg`, `SetVelocity.srv`
 - Parameters: `snake_case` with dot-separated namespaces — `controller.max_velocity`
+
+---
+
+## Self-Verification Checklist
+
+Before concluding ROS2 package or node modifications:
+- [ ] Parameters are declared in constructor with explicit default values.
+- [ ] No synchronous blocking operations (`time.sleep`) executed inside callbacks.
+- [ ] QoS profiles between publishers and subscribers are verified compatible.
+- [ ] Service client calls inside callbacks execute asynchronously or with dedicated callback groups.
+- [ ] `package.xml` lists all runtime and build dependencies.
+- [ ] Python launch files tested with `ros2 launch` and verified for namespace encapsulation.

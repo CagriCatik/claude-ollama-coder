@@ -1,4 +1,9 @@
 .venv/
 __pycache__/
-.claude*
-site
+.claude/
+!.claude/skills/
+!.claude-plugin/
+site/
+.DS_Store
+.env
+!.env.example

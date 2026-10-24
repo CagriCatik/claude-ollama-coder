@@ -1,3 +1,13 @@
-mkdocs
-mkdocs-material
-pymdown-extensions
+# ==============================================================================
+# MkDocs Documentation Site Dependencies
+# ==============================================================================
+# Install to build or preview the MkDocs documentation site:
+#   pip install -r requirements-docs.txt
+#   mkdocs serve
+#
+# Note: For Ollama Python SDK, terminal tools, and lab dependencies, see:
+#   requirements.txt
+# ==============================================================================
+mkdocs>=1.6.0
+mkdocs-material>=9.5.0
+pymdown-extensions>=10.7

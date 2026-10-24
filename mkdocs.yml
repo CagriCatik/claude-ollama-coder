@@ -9,6 +9,9 @@ site_dir: site
 theme:
   name: material
   language: en
+  font:
+    text: Inter
+    code: JetBrains Mono
   features:
     - navigation.instant
     - navigation.tracking
@@ -19,14 +22,14 @@ theme:
     - content.tooltips
   palette:
     - scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-7
         name: Switch to light mode
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-4
         name: Switch to dark mode
@@ -56,13 +59,81 @@ extra_javascript:
   - javascripts/extra.js
 nav:
   - Home: index.md
-  - Cheatsheet: 00_Claude-Unified-Cheatsheet.md
-  - Claude Code in Action: 01_Claude-Code-in-Action.md
-  - Claude 101: 02_Claude-101.md
-  - AI Fluency Framework: 03_AI-Fluency-Framework-Foundations.md
-  - Building with the Claude API: 04_Building-with-the-Claude-API.md
-  - Model Context Protocol: 05_MCP.md
-  - Advanced MCP Patterns: 06_MCP-Advanded.md
-  - Agent Skills: 07_Agent-Skills.md
-  - Subagents & Orchestration: 08_Subagents.md
-  - Skills: 09_Skills.md
+  - Course Overview: tutorials/index.md
+  - Reference Cheatsheet: tutorials/unified-cheatsheet.md
+  - 00 Getting Started:
+      - Overview: tutorials/00-getting-started/README.md
+      - Where Claude Runs: tutorials/00-getting-started/01-where-claude-runs.md
+      - Plans & Limits: tutorials/00-getting-started/02-plans-and-limits.md
+      - Desktop UI Tour: tutorials/00-getting-started/03-desktop-ui-tour.md
+  - 01 Core Concepts:
+      - Overview: tutorials/01-core-concepts/README.md
+      - Prompting (Context, Task, Format): tutorials/01-core-concepts/01-prompting.md
+      - Choosing a Model: tutorials/01-core-concepts/02-models.md
+      - Effort Levels: tutorials/01-core-concepts/03-effort-levels.md
+      - Permission Modes: tutorials/01-core-concepts/04-permission-modes.md
+      - Plan-Mode Workflow: tutorials/01-core-concepts/05-plan-mode-workflow.md
+      - Deep Dive - Claude 101 API: tutorials/01-core-concepts/06-claude-101-api-fundamentals.md
+      - Deep Dive - AI Fluency: tutorials/01-core-concepts/07-ai-fluency-framework.md
+  - 02 Project Context:
+      - Overview: tutorials/02-project-context/README.md
+      - CLAUDE.md Standing Instructions: tutorials/02-project-context/01-claude-md.md
+      - Memory: tutorials/02-project-context/02-memory.md
+      - settings.json: tutorials/02-project-context/03-settings-json.md
+      - Referencing Context: tutorials/02-project-context/04-referencing-context.md
+  - 03 Extending Claude:
+      - Overview: tutorials/03-extending-claude/README.md
+      - Skills: tutorials/03-extending-claude/01-skills.md
+      - Subagents: tutorials/03-extending-claude/02-subagents.md
+      - MCP Servers: tutorials/03-extending-claude/03-mcp.md
+      - Hooks: tutorials/03-extending-claude/04-hooks.md
+      - Plugins & Mods: tutorials/03-extending-claude/05-plugins-and-mods.md
+      - Deep Dive - MCP Expert Guide: tutorials/03-extending-claude/06-mcp-expert-guide.md
+      - Deep Dive - Advanced MCP: tutorials/03-extending-claude/07-mcp-advanced-patterns.md
+      - Deep Dive - Agent Skills: tutorials/03-extending-claude/08-agent-skills-guide.md
+      - Deep Dive - Subagents Architecture: tutorials/03-extending-claude/09-subagents-architecture.md
+      - Deep Dive - Skills Reference: tutorials/03-extending-claude/10-skills-deep-dive.md
+  - 04 Daily Workflow:
+      - Overview: tutorials/04-daily-workflow/README.md
+      - Context Management: tutorials/04-daily-workflow/01-context-management.md
+      - Rewind & Prompt History: tutorials/04-daily-workflow/02-rewind.md
+      - Parallel Sessions & Worktrees: tutorials/04-daily-workflow/03-parallel-sessions-worktrees.md
+      - Code Review: tutorials/04-daily-workflow/04-code-review.md
+      - Routines: tutorials/04-daily-workflow/05-routines.md
+      - Deep Dive - Claude Code in Action: tutorials/04-daily-workflow/06-claude-code-in-action.md
+  - 05 Beyond Code:
+      - Overview: tutorials/05-beyond-code/README.md
+      - Projects & Memory: tutorials/05-beyond-code/01-projects-and-memory.md
+      - Connectors: tutorials/05-beyond-code/02-connectors.md
+      - Cowork & File Automation: tutorials/05-beyond-code/03-cowork.md
+      - Design to Code: tutorials/05-beyond-code/04-design-to-code.md
+      - Build Tools, Not Answers: tutorials/05-beyond-code/05-build-your-own-tools.md
+      - Deep Dive - Building with Claude API & RAG: tutorials/05-beyond-code/06-building-with-claude-api-and-rag.md
+  - 06 Learning with AI:
+      - Overview: tutorials/06-learning-with-ai/README.md
+      - Client Mindset: tutorials/06-learning-with-ai/01-client-mindset.md
+      - Stage 1 - Collect: tutorials/06-learning-with-ai/02-collect.md
+      - Stage 2 - Understand: tutorials/06-learning-with-ai/03-understand.md
+      - Stage 3 - Own: tutorials/06-learning-with-ai/04-own.md
+  - 07 Running with Ollama:
+      - Overview: tutorials/07-running-with-ollama/README.md
+      - Quickstart & Setup: tutorials/07-running-with-ollama/01-quickstart-and-setup.md
+      - Selecting Models & Context: tutorials/07-running-with-ollama/02-selecting-models-and-context.md
+      - Headless & Automation: tutorials/07-running-with-ollama/03-headless-and-automation.md
+      - Cloud Models & Channels: tutorials/07-running-with-ollama/04-cloud-and-channels.md
+      - Local Tactics & Storybook: tutorials/07-running-with-ollama/05-local-model-tactics-and-storybook.md
+      - Ollama CLI Reference: tutorials/07-running-with-ollama/06-cli-tools-and-python-sdk.md
+      - Gateways & Alternative Providers: tutorials/07-running-with-ollama/07-alternative-providers-and-gateways.md
+  - Hands-on Labs & Capstone:
+      - Labs Overview: tutorials/labs/README.md
+      - Lab 01 - First Project: tutorials/labs/lab-01-first-project.md
+      - Lab 02 - Plan Mode: tutorials/labs/lab-02-plan-mode.md
+      - Lab 03 - CLAUDE.md: tutorials/labs/lab-03-claude-md.md
+      - Lab 04 - Settings & Permissions: tutorials/labs/lab-04-settings.md
+      - Lab 05 - Creating a Skill: tutorials/labs/lab-05-skill.md
+      - Lab 06 - Creating a Subagent: tutorials/labs/lab-06-subagent.md
+      - Lab 07 - Event Hooks: tutorials/labs/lab-07-hook.md
+      - Lab 08 - Parallel Sessions: tutorials/labs/lab-08-parallel.md
+      - Lab 09 - Learning Workflow: tutorials/labs/lab-09-learning-workflow.md
+      - Lab 10 - Running with Ollama: tutorials/labs/lab-10-ollama.md
+      - Capstone Project: tutorials/labs/capstone.md

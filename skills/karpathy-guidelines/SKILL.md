@@ -2,6 +2,10 @@
 name: karpathy-guidelines
 description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
 license: MIT
+compatibility: Universal (Language and Framework Agnostic)
+metadata:
+  author: claude-ollama-coder
+  version: "1.0.0"
 ---
 
 # Karpathy Guidelines
@@ -9,6 +13,23 @@ license: MIT
 Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+
+---
+
+## When to Use This Skill
+
+- **Trigger Scenarios:**
+  - When writing new code or implementing complex multi-step features.
+  - When reviewing code for unnecessary complexity or over-engineering.
+  - When refactoring existing modules or fixing subtle bugs.
+  - When uncertain about user requirements or edge-case handling.
+  - When formulating execution plans and verification loops.
+
+- **When NOT to Use:**
+  - Do not use for mechanical 1-line syntax corrections where no architectural ambiguity exists.
+  - Do not use when explicit, prescriptive boilerplate code generation was requested.
+
+---
 
 ## 1. Think Before Coding
 
@@ -19,6 +40,8 @@ Before implementing:
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
+
+---
 
 ## 2. Simplicity First
 
@@ -31,6 +54,8 @@ Before implementing:
 - If you write 200 lines and it could be 50, rewrite it.
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+---
 
 ## 3. Surgical Changes
 
@@ -48,6 +73,8 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
+---
+
 ## 4. Goal-Driven Execution
 
 **Define success criteria. Loop until verified.**
@@ -58,10 +85,21 @@ Transform tasks into verifiable goals:
 - "Refactor X" → "Ensure tests pass before and after"
 
 For multi-step tasks, state a brief plan:
-```
+```text
 1. [Step] → verify: [check]
 2. [Step] → verify: [check]
 3. [Step] → verify: [check]
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+---
+
+## Self-Verification Checklist
+
+Before concluding your task or presenting code:
+- [ ] Explicitly stated assumptions and surfaced necessary tradeoffs.
+- [ ] Selected the simplest viable solution without speculative abstractions.
+- [ ] Changes are surgical: touched only lines necessary to satisfy the prompt.
+- [ ] No unrelated formatting, comments, or working code disrupted.
+- [ ] Defined measurable success criteria and ran verification to confirm success.

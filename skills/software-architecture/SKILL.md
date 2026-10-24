@@ -1,11 +1,34 @@
 ---
 name: software-architecture
 description: Software architecture guidance. Use when designing new systems or subsystems, choosing architectural patterns (microservices, event-driven, hexagonal, CQRS), defining component/service boundaries, planning integration strategies, writing Architecture Decision Records (ADRs), evaluating technology stack choices, or reasoning about non-functional requirements like scalability, reliability, and maintainability.
+license: MIT
+compatibility: Universal (System Architecture & Design)
+metadata:
+  author: claude-ollama-coder
+  version: "1.0.0"
 ---
 
 # Software Architecture
 
 Structural thinking for systems that need to evolve, scale, and be operated. Architecture decisions are expensive to reverse — apply deliberate reasoning before committing.
+
+---
+
+## When to Use This Skill
+
+- **Trigger Scenarios:**
+  - When designing new software systems, services, or large subsystems.
+  - When selecting macro patterns (modular monolith, microservices, event-driven, hexagonal/ports-and-adapters, CQRS).
+  - When establishing service boundaries, ownership models, or domain seams.
+  - When writing or reviewing Architecture Decision Records (ADRs).
+  - When evaluating quality attribute tradeoffs (latency vs throughput, consistency vs availability).
+  - When defining system-level data flows, message contracts, or state ownership.
+
+- **When NOT to Use:**
+  - Do not use for isolated, single-function implementation details (use `software-engineering` or language-specific skills).
+  - Do not use for pure HTTP endpoint schema formatting (use `api-design`).
+
+---
 
 ## The Core Job of Architecture
 
@@ -15,6 +38,8 @@ Architecture answers three questions for every significant decision:
 3. **What did we knowingly trade away?** (tradeoffs)
 
 If you can't answer all three, the decision isn't fully made yet.
+
+---
 
 ## Defining Component Boundaries
 
@@ -30,6 +55,8 @@ Good boundaries follow natural seams in the domain. Bad boundaries follow layers
 - Two components always change together — they're one component, split at the wrong seam.
 - One component directly reads another's database or internal data structure.
 - You can't explain what a component does without describing what it calls.
+
+---
 
 ## Architectural Patterns — When to Use Each
 
@@ -53,6 +80,8 @@ Strong fit for robotics systems: the domain logic is the control/planning core; 
 Use when: read and write patterns are fundamentally different in shape, scale, or authorization — maintaining separate models for each pays for the added complexity.
 Don't use for simple CRUD where reads and writes look the same.
 
+---
+
 ## Quality Attributes and Tradeoffs
 
 Every architectural choice is a tradeoff across quality attributes. Name them explicitly.
@@ -67,6 +96,8 @@ Every architectural choice is a tradeoff across quality attributes. Name them ex
 | Operational simplicity | Flexibility (fewer knobs = less to tune) |
 
 When evaluating options: list which attributes each option optimizes and which it degrades. Make the tradeoff explicit to the team.
+
+---
 
 ## Architecture Decision Records (ADRs)
 
@@ -95,6 +126,8 @@ Custom goal, result, and feedback message types will be defined in `nav_msgs_cus
 
 Store ADRs in `docs/decisions/` or `adr/`. Number them sequentially. Never delete an old ADR — mark it as Superseded and link to the new one.
 
+---
+
 ## Coupling and Cohesion
 
 **High cohesion**: things that change together live together. **Low coupling**: things that live separately don't depend on each other's internals.
@@ -111,6 +144,8 @@ Reducing coupling:
 - Use events/callbacks instead of direct calls when the producer shouldn't know who consumes
 - Invert dependencies: depend on an interface, not a concrete implementation
 
+---
+
 ## Data Flow Design
 
 Decide early: **who owns each piece of state, and who is allowed to change it?**
@@ -120,11 +155,13 @@ Decide early: **who owns each piece of state, and who is allowed to change it?**
 - Shared mutable state between components is a coupling landmine. Prefer immutable messages passed between components.
 - For complex pipelines: name each stage and what data flows between them before writing code.
 
-```
+```text
 Sensor Driver → [raw scan message] → Filter Node → [filtered scan] → Mapper → [occupancy grid]
 ```
 
 Drawing the data flow before implementing surfaces assumptions about message shapes, rates, and failure modes.
+
+---
 
 ## Designing for Operations
 
@@ -135,6 +172,8 @@ The system will fail. Design so that when it does, operators can understand and 
 - **Idempotency**: design operations so they can be safely retried. Especially important for hardware commands and message-based systems.
 - **Versioning at boundaries**: version your message types and APIs from the start. Unversioned interfaces make incremental deployment impossible.
 - **Rollback plan for every deployment**: if the new version has a problem, how do you revert? Can you? This question should be answered before deployment, not after.
+
+---
 
 ## Evaluation Framework for Architectural Options
 
@@ -147,3 +186,14 @@ When comparing options, structure the comparison:
 5. **Reversibility** — how hard is it to change this decision in 6 months?
 
 Don't pick the technically superior option if the team can't maintain it. The best architecture is the one that gets built, ships, and keeps running.
+
+---
+
+## Self-Verification Checklist
+
+Before finalizing an architectural recommendation or system design:
+- [ ] Component boundaries follow domain seams rather than artificial technical layers.
+- [ ] State ownership is uniquely assigned to a single component or service.
+- [ ] Tradeoffs between competing quality attributes (e.g. latency vs consistency) are documented.
+- [ ] Irreversible or high-cost decisions documented in an Architecture Decision Record (ADR).
+- [ ] Operational considerations (health checks, failure modes, rollback strategies) addressed.

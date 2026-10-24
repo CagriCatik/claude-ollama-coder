@@ -1,0 +1,32 @@
+{
+  "name": "claude-ollama-coder-marketplace",
+  "owner": {
+    "name": "Çağrı Çatık"
+  },
+  "metadata": {
+    "description": "Curated Claude Code & Ollama Agent Skills adhering to Anthropic Agent Skills standards",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-ollama-coder-skills",
+      "description": "Production agent skills for local LLM engineering, software architecture, modern Python, and Claude Code workflows",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/api-design",
+        "./skills/claude-code-workflows",
+        "./skills/git-workflow",
+        "./skills/karpathy-guidelines",
+        "./skills/mcp-builder",
+        "./skills/ollama-claude-bridge",
+        "./skills/ollama-modelfile-tuning",
+        "./skills/python-modern-practices",
+        "./skills/ros2",
+        "./skills/secure-coding",
+        "./skills/software-architecture",
+        "./skills/software-engineering"
+      ]
+    }
+  ]
+}
