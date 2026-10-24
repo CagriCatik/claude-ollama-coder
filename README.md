@@ -13,7 +13,7 @@
     </a>
     <img alt="Python" src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square">
     <img alt="Curriculum" src="https://img.shields.io/badge/course-8%20modules%20%2B%2010%20labs-success?style=flat-square">
-    <img alt="Agent Skills" src="https://img.shields.io/badge/skills-13%20conforming%20skills-orange?style=flat-square">
+    <img alt="Agent Skills" src="https://img.shields.io/badge/skills-14%20conforming%20skills-orange?style=flat-square">
   </p>
 </div>
 
@@ -26,7 +26,7 @@
 1. **The Complete Claude Code Tutorial & Course**: An 8-module progressive curriculum (Modules 00–07) paired with 10 hands-on labs, a comprehensive capstone project, and starter project templates.
 2. **Local & Cloud Inference Engine via Ollama**: Complete cross-platform automation and scripts that redirect the Claude CLI / Claude Code to an Anthropic-compatible Ollama endpoint (`http://localhost:11434`), enabling zero-cost, private, offline-capable agentic coding.
 3. **Deep Technical Reference Library**: An in-depth reference suite covering the Claude API, Model Context Protocol (MCP), Subagent Orchestration, and reusable Agent Skills, published via MkDocs Material to [GitHub Pages](https://cagricatik.github.io/claude-ollama-coder/).
-4. **13 Conforming Agent Skills**: Production behavioral guidelines and execution modules strictly adhering to the open [Anthropic Agent Skills standard](https://agentskills.io).
+4. **14 Conforming Agent Skills**: Production behavioral guidelines and execution modules strictly adhering to the open [Anthropic Agent Skills standard](https://agentskills.io).
 
 > **Note on accuracy:** Claude Code's UI, model names, and features evolve rapidly. When a specific detail matters, consult the official documentation at <https://docs.anthropic.com/en/docs/claude-code> and the Ollama model library at <https://ollama.com/library>.
 
@@ -291,6 +291,8 @@ python3 skills/_template/scripts/validate_skill.py skills
 
 - [`examples/starter-project/`](examples/starter-project/): Complete `.claude/` template featuring `settings.json`, subagents (`code-reviewer`, `test-runner`), hooks (`notify.sh`, `block-secrets.sh`), and skills.
 - [`examples/learning-archive/`](examples/learning-archive/): Ready-to-copy research archive template for Module 06.
+- [`examples/agent-dispatcher/`](examples/agent-dispatcher/): A2A task dispatcher microservice with structured envelope patterns and RFC 7807 error handling (built with `nemotron-3-ultra:cloud`).
+- [`examples/swarm-coordinator/`](examples/swarm-coordinator/): Hexagonal micro-swarm coordinator with fail-closed pre-execution audit gating, symmetric A2A JSON-RPC, and SSE event streaming (built with `beam:cloud`).
 
 ---
 
@@ -335,11 +337,12 @@ claude-ollama-coder/
 │       ├── 07-running-with-ollama/← Module 07: Local models, headless, 64k+
 │       └── labs/                  ← Hands-on exercises (Lab 01 to Lab 10 + Capstone)
 │
-├── examples/                      ← Starter project template (.claude/) & learning archive
+├── examples/                      ← Starter templates & microservices (agent-dispatcher, swarm-coordinator)
 └── skills/                        ← Reusable Agent Skills adhering to Anthropic specification
     ├── README.md                  ← Authoring guide & skills architecture documentation
     ├── _template/                 ← Canonical template, references, and validate_skill.py
     ├── agent-to-agent/            ← Multi-agent orchestration, envelopes & handoffs
+    ├── agentswarm-engineer/       ← Hexagonal swarm engineering, fail-closed audit & A2A protocol
     ├── api-design/                ← REST API design & RFC 7807 error standards
     ├── claude-code-workflows/     ← Plan mode, /compact, slash commands & worktrees
     ├── git-workflow/              ← Conventional Commits, worktrees, PR summaries

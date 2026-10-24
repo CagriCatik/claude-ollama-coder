@@ -167,6 +167,7 @@ python3 skills/_template/scripts/validate_skill.py skills
 | Skill | Directory | Primary Trigger & Focus |
 |---|---|---|
 | **`agent-to-agent`** | [`skills/agent-to-agent/`](./agent-to-agent/SKILL.md) | Multi-agent orchestration, supervisor-worker topologies, structured message envelopes, subagent state handoffs. |
+| **`agentswarm-engineer`** | [`skills/agentswarm-engineer/`](./agentswarm-engineer/SKILL.md) | Hexagonal multi-agent swarms, fail-closed pre-execution audit gating, symmetric A2A JSON-RPC, FastMCP tools. |
 | **`api-design`** | [`skills/api-design/`](./api-design/SKILL.md) | REST/HTTP API design, RFC 7807 problem details, status codes, pagination, idempotency. |
 | **`claude-code-workflows`** | [`skills/claude-code-workflows/`](./claude-code-workflows/SKILL.md) | Plan-mode (`/plan`), context compacting (`/compact`), headless runs (`claude -p`), subagents. |
 | **`git-workflow`** | [`skills/git-workflow/`](./git-workflow/SKILL.md) | Conventional Commits, git worktrees for parallel sessions, atomic commits, PR summaries. |

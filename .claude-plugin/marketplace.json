@@ -15,6 +15,7 @@
       "strict": false,
       "skills": [
         "./skills/agent-to-agent",
+        "./skills/agentswarm-engineer",
         "./skills/api-design",
         "./skills/claude-code-workflows",
         "./skills/git-workflow",
